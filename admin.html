@@ -6,6 +6,7 @@
   <meta name="description" content="Secured Admin Control Panel for managing ICAI Vijayawada branch website content.">
   <title>Admin Dashboard | Vijayawada Branch of SIRC of ICAI</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W==" crossorigin="anonymous" referrerpolicy="no-referrer">
   <style>
     .admin-container {
       max-width: 1100px;
@@ -95,7 +96,7 @@
 
     <!-- 1. Failsafe Config Alert: Shown if window.SUPABASE_URL is not set -->
     <div class="config-alert-card" id="config-alert" style="display: none;">
-      <h2 style="color: var(--primary-blue); margin-bottom: 15px;">⚠️ Database Configuration Required</h2>
+      <h2 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Database Configuration Required</h2>
       <p class="mb-2" style="font-size: 0.95rem;">
         It looks like your database connection details are missing. To run this portal without mock data, please do the following:
       </p>
@@ -122,7 +123,7 @@
           <label class="form-label" for="login-password">Password</label>
           <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
         </div>
-        <button type="submit" class="btn-submit" style="width: 100%;">🔑 Sign In to Console</button>
+        <button type="submit" class="btn-submit" style="width: 100%;"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Sign In to Console</button>
       </form>
       <div class="mt-2 text-center" style="font-size:0.75rem; color:var(--text-muted)">
         Authorized branch personnel only. Sign-ins are logged.
@@ -136,15 +137,15 @@
           <h1 style="color: var(--primary-blue); font-size: 1.6rem;">Welcome, Admin Console</h1>
           <span style="font-size: 0.8rem; color: var(--text-muted);" id="user-email-display">Logged in as admin</span>
         </div>
-        <button class="logout-btn" id="btn-admin-logout">🚪 Log Out</button>
+        <button class="logout-btn" id="btn-admin-logout"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Log Out</button>
       </div>
 
       <!-- Tab Buttons -->
       <div class="tab-container" style="margin-bottom: 30px;">
-        <button class="tab-btn active" data-target="tab-announcements">📢 Announcements</button>
-        <button class="tab-btn" data-target="tab-seminars">📚 CPE Seminars</button>
-        <button class="tab-btn" data-target="tab-newsletters">📄 Newsletters</button>
-        <button class="tab-btn" data-target="tab-queries">✉ User Grievances</button>
+        <button class="tab-btn active" data-target="tab-announcements"><i class="fa-solid fa-bullhorn" aria-hidden="true"></i> Announcements</button>
+        <button class="tab-btn" data-target="tab-seminars"><i class="fa-solid fa-book-open" aria-hidden="true"></i> CPE Seminars</button>
+        <button class="tab-btn" data-target="tab-newsletters"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Newsletters</button>
+        <button class="tab-btn" data-target="tab-queries"><i class="fa-solid fa-envelope" aria-hidden="true"></i> User Grievances</button>
       </div>
 
       <!-- Tab Panel 1: Announcements -->
@@ -169,7 +170,7 @@
               <input type="checkbox" id="ann-is-new" checked>
               <label class="form-label" for="ann-is-new" style="margin-bottom:0; cursor:pointer;">Mark as 'NEW' blinking badge</label>
             </div>
-            <button type="submit" class="btn-submit">➕ Publish Notice</button>
+            <button type="submit" class="btn-submit"><i class="fa-solid fa-plus" aria-hidden="true"></i> Publish Notice</button>
           </div>
         </form>
 
@@ -228,7 +229,7 @@
             </div>
           </div>
           <div class="text-right">
-            <button type="submit" class="btn-submit">➕ Publish Seminar</button>
+            <button type="submit" class="btn-submit"><i class="fa-solid fa-plus" aria-hidden="true"></i> Publish Seminar</button>
           </div>
         </form>
 
@@ -273,7 +274,7 @@
             </div>
           </div>
           <div class="text-right">
-            <button type="submit" class="btn-submit">➕ Publish Newsletter</button>
+            <button type="submit" class="btn-submit"><i class="fa-solid fa-plus" aria-hidden="true"></i> Publish Newsletter</button>
           </div>
         </form>
 
@@ -486,9 +487,9 @@
           <td>${item.date}</td>
           <td><strong>${item.title}</strong></td>
           <td><code>${item.link || '-'}</code></td>
-          <td>${item.is_new ? '✅' : '❌'}</td>
+          <td>${item.is_new ? '<span style="color:var(--success-color)"><i class="fa-solid fa-circle-check"></i> Yes</span>' : '<span style="color:var(--text-muted)"><i class="fa-solid fa-circle-xmark"></i> No</span>'}</td>
           <td class="action-cell">
-            <button class="btn-delete" onclick="deleteAnnouncement('${item.id}')">🗑 Delete</button>
+            <button class="btn-delete" onclick="deleteAnnouncement('${item.id}')"><i class="fa-solid fa-trash" aria-hidden="true"></i> Delete</button>
           </td>
         `;
         tableBody.appendChild(tr);
@@ -554,7 +555,7 @@
           <td>${item.hours} hrs</td>
           <td>${item.fee}</td>
           <td class="action-cell">
-            <button class="btn-delete" onclick="deleteSeminar('${item.id}')">🗑 Delete</button>
+            <button class="btn-delete" onclick="deleteSeminar('${item.id}')"><i class="fa-solid fa-trash" aria-hidden="true"></i> Delete</button>
           </td>
         `;
         tableBody.appendChild(tr);
@@ -621,7 +622,7 @@
           <td>${item.title}</td>
           <td><code>${item.pdf_url}</code></td>
           <td class="action-cell">
-            <button class="btn-delete" onclick="deleteNewsletter('${item.id}')">🗑 Delete</button>
+            <button class="btn-delete" onclick="deleteNewsletter('${item.id}')"><i class="fa-solid fa-trash" aria-hidden="true"></i> Delete</button>
           </td>
         `;
         tableBody.appendChild(tr);
@@ -687,7 +688,7 @@
           <td><span class="secure-cloud-badge" style="background:#e5e9f2;color:var(--primary-blue);border-color:#ccc">${item.category}</span></td>
           <td style="font-size:0.8rem; max-width:300px; overflow-wrap:break-word;">${item.message}</td>
           <td class="action-cell">
-            <button class="btn-delete" onclick="deleteQuery('${item.id}')">🗑 Resolve</button>
+            <button class="btn-delete" onclick="deleteQuery('${item.id}')"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Resolve</button>
           </td>
         `;
         tableBody.appendChild(tr);

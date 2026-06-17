@@ -762,6 +762,31 @@ body.high-contrast .portal-card:hover {
   color: var(--primary-blue);
   margin-bottom: 10px;
   display: block;
+  line-height: 1;
+}
+
+/* FA icon inline usage (phone, envelope, calendar, shield etc.) */
+.notice-date i,
+.footer-address i,
+.member-contact i,
+.secure-cloud-badge i {
+  color: var(--primary-blue);
+  width: 16px;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.ticker-item i {
+  color: var(--marquee-text);
+  margin-right: 3px;
+}
+
+body.high-contrast .notice-date i,
+body.high-contrast .footer-address i,
+body.high-contrast .member-contact i,
+body.high-contrast .secure-cloud-badge i,
+body.high-contrast .ticker-item i {
+  color: #ffff00;
 }
 
 body.high-contrast .portal-icon {
