@@ -29,15 +29,43 @@ document.addEventListener("DOMContentLoaded", async () => {
    1. Supabase Initialization
    ---------------------------------------------------- */
 async function initSupabase() {
-  if (window.supabase && window.SUPABASE_URL && !window.SUPABASE_URL.includes("your-project-ref")) {
+  let url = "";
+  let key = "";
+
+  // 1. Try to fetch from Vercel Serverless API environment variables
+  try {
+    const res = await fetch("/api/config");
+    if (res.ok) {
+      const config = await res.json();
+      if (config.supabaseUrl && config.supabaseAnonKey) {
+        url = config.supabaseUrl;
+        key = config.supabaseAnonKey;
+        console.log("[ICAI CMS] Credentials successfully loaded from Vercel Environment Variables.");
+      }
+    }
+  } catch (err) {
+    console.log("[ICAI CMS] Vercel environment API not available, trying local config.js...");
+  }
+
+  // 2. Fall back to local config.js if API keys were not found in env
+  if (!url || !key) {
+    if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY && !window.SUPABASE_URL.includes("your-project-ref")) {
+      url = window.SUPABASE_URL;
+      key = window.SUPABASE_ANON_KEY;
+      console.log("[ICAI CMS] Credentials successfully loaded from local config.js file.");
+    }
+  }
+
+  // 3. Initialize Supabase if keys exist
+  if (url && key) {
     try {
-      supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+      supabase = window.supabase.createClient(url, key);
       console.log("[ICAI CMS] Supabase initialized successfully. Real-time data sync active.");
     } catch (e) {
       console.error("[ICAI CMS] Error creating Supabase client:", e);
     }
   } else {
-    console.warn("[ICAI CMS] config.js not yet configured or keys missing. Running in offline/mock data fallback mode.");
+    console.warn("[ICAI CMS] Configuration missing. Please set Vercel Environment Variables (SUPABASE_URL, SUPABASE_ANON_KEY) or create config.js locally. Running in offline/mock fallback mode.");
   }
 }
 

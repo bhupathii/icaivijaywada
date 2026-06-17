@@ -353,20 +353,47 @@
     // Supabase client instance holder
     let supabaseClient = null;
 
-    window.addEventListener("load", () => {
-      // Validate credentials have been set
-      if (!window.SUPABASE_URL || window.SUPABASE_URL.includes("your-project-ref")) {
+    window.addEventListener("load", async () => {
+      let url = "";
+      let key = "";
+
+      // 1. Try to load from Vercel API
+      try {
+        const res = await fetch("/api/config");
+        if (res.ok) {
+          const config = await res.json();
+          if (config.supabaseUrl && config.supabaseAnonKey) {
+            url = config.supabaseUrl;
+            key = config.supabaseAnonKey;
+            console.log("Admin: Loaded credentials from Vercel environment variables API.");
+          }
+        }
+      } catch (err) {
+        console.log("Admin: Vercel environment API not available, trying window fallback...");
+      }
+
+      // 2. Fall back to window object local config
+      if (!url || !key) {
+        if (window.SUPABASE_URL && window.SUPABASE_ANON_KEY && !window.SUPABASE_URL.includes("your-project-ref")) {
+          url = window.SUPABASE_URL;
+          key = window.SUPABASE_ANON_KEY;
+          console.log("Admin: Loaded credentials from local config.js file.");
+        }
+      }
+
+      // 3. Verify keys loaded
+      if (!url || !key) {
         document.getElementById("config-alert").style.display = "block";
         return;
       }
 
-      // Initialize
+      // Initialize Supabase Client
       try {
-        supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+        supabaseClient = window.supabase.createClient(url, key);
         checkSession();
       } catch (err) {
         console.error("Error creating Supabase client:", err);
-        alert("Failed to initialize Supabase. Check config.js settings.");
+        alert("Failed to initialize Supabase. Check config settings.");
       }
     });
 
