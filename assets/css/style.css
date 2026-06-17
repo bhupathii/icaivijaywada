@@ -2,6 +2,7 @@
    ICAI Vijayawada Branch Portal Stylesheet
    Designed for institutional authority, maximum legibility, and full accessibility.
 */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* ----------------------------------------------------
    1. Theme Variables & Fonts
@@ -27,7 +28,7 @@
   --marquee-text: #c05621;
   
   --base-font-size: 16px;
-  --font-family: "Segoe UI", Arial, sans-serif;
+  --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --transition-speed: 0.3s;
 }
 
@@ -73,6 +74,7 @@ html.font-large {
 body {
   font-family: var(--font-family);
   font-size: var(--base-font-size);
+  font-weight: 400;
   color: var(--text-color);
   background-color: var(--bg-color);
   line-height: 1.6;
@@ -1268,4 +1270,70 @@ body.high-contrast .secure-cloud-badge {
   .carousel-caption p {
     font-size: 0.8rem;
   }
+}
+
+/* ----------------------------------------------------
+   20. Photo Gallery Styling (Premium Card Grid)
+   ---------------------------------------------------- */
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.gallery-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.gallery-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+  border-color: var(--primary-gold);
+}
+
+.gallery-img-wrapper {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+}
+
+.gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.gallery-card:hover .gallery-img {
+  transform: scale(1.05);
+}
+
+.gallery-caption {
+  padding: 12px 15px;
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--border-color);
+}
+
+.gallery-title {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-color);
+  line-height: 1.4;
+  display: block;
+}
+
+body.high-contrast .gallery-card {
+  border: 2px solid #ffff00;
+}
+body.high-contrast .gallery-card:hover {
+  border-color: #ffffff;
+}
+body.high-contrast .gallery-caption {
+  border-top-color: #ffff00;
 }
