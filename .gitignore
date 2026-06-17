@@ -1,5 +1,5 @@
 # ICAI Vijayawada Local Git Ignore
-config.js
+/config.js
 .DS_Store
 node_modules/
 .vscode/
