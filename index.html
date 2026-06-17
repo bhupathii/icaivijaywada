@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Official website of the Vijayawada Branch of SIRC of the Institute of Chartered Accountants of India (ICAI). Portals for CPE hours, seminars, news, and student resources.">
+  <title>Vijayawada Branch of SIRC of ICAI | Home</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- 1. Indian Colors Top Strip -->
+  <div class="national-strip" role="presentation"></div>
+
+  <!-- 2. Accessibility & Top Utility Bar -->
+  <header class="top-bar" aria-label="Accessibility and Quick Links">
+    <div class="container">
+      <div class="top-bar-left">
+        <a href="https://www.icai.org/" target="_blank" rel="noopener">ICAI National Portal</a>
+        <a href="https://sirc-icai.org/" target="_blank" rel="noopener">SIRC of ICAI</a>
+      </div>
+      <div class="top-bar-right">
+        <!-- Text Resizer -->
+        <div class="accessibility-controls" aria-label="Text Size Controls">
+          <span>Text Size:</span>
+          <button class="acc-btn" id="btn-font-small" title="Decrease Font Size" aria-label="Decrease Font Size">A-</button>
+          <button class="acc-btn" id="btn-font-normal" title="Normal Font Size" aria-label="Normal Font Size">A</button>
+          <button class="acc-btn" id="btn-font-large" title="Increase Font Size" aria-label="Increase Font Size">A+</button>
+        </div>
+        <!-- Color Contrasts -->
+        <div class="accessibility-controls" aria-label="Color Theme Controls">
+          <span>Contrast:</span>
+          <button class="acc-btn" id="btn-contrast-normal" title="Standard Theme" aria-label="Standard Theme">Standard</button>
+          <button class="acc-btn" id="btn-contrast-high" style="background:#000; color:#fff000; border-color:#fff000" title="High Contrast Theme" aria-label="High Contrast Theme">High Contrast</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Main Identity Banner -->
+  <div class="main-header" role="banner">
+    <div class="container">
+      <div class="brand-wrapper">
+        <img src="assets/images/icai-logo.svg" alt="ICAI Crest Logo" class="logo-icai">
+        <div class="brand-titles">
+          <span class="brand-title-en">Vijayawada Branch of SIRC of</span>
+          <h1 class="brand-subtitle-en">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h1>
+          <span class="brand-desc">(Set up by an Act of Parliament)</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <img src="assets/images/sicasa-logo.svg" alt="SICASA Student Association Logo" class="logo-sicasa">
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Navigation Menu -->
+  <nav class="nav-bar" aria-label="Main Navigation">
+    <div class="container">
+      <button class="mobile-nav-toggle" id="mobile-toggle" aria-expanded="false" aria-controls="main-menu" aria-label="Toggle navigation menu">
+        ☰ Menu
+      </button>
+      <ul class="nav-menu" id="main-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link" style="color: var(--gold-accent);">Home</a></li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">About Us ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html#profile" class="dropdown-link">About Vijayawada Branch</a></li>
+            <li><a href="about.html#message" class="dropdown-link">Chairman's Message</a></li>
+            <li><a href="about.html#committee" class="dropdown-link">Managing Committee</a></li>
+            <li><a href="about.html#past-chairmen" class="dropdown-link">Past Chairmen</a></li>
+            <li><a href="about.html#gallery" class="dropdown-link">Photo Gallery</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">Members ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="members.html#seminars" class="dropdown-link">CPE Seminars / Events</a></li>
+            <li><a href="members.html#hours-tracker" class="dropdown-link">CPE Hours Tracker</a></li>
+            <li><a href="members.html#newsletters" class="dropdown-link">Monthly Newsletters</a></li>
+            <li><a href="index.html#notice-board" class="dropdown-link">Member Announcements</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">Students ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="students.html#sicasa" class="dropdown-link">SICASA Committee</a></li>
+            <li><a href="students.html#coaching" class="dropdown-link">Coaching Classes</a></li>
+            <li><a href="students.html#student-events" class="dropdown-link">Upcoming Student Events</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">Announcements ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="index.html#notice-board" class="dropdown-link">General Announcements</a></li>
+            <li><a href="members.html#newsletters" class="dropdown-link">Circulars &amp; Notification PDFs</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 5. Live Announcements Ticker -->
+  <section class="news-ticker-section" aria-label="Breaking News">
+    <div class="container">
+      <div class="ticker-wrapper">
+        <span class="ticker-label">Latest News</span>
+        <div class="ticker-scroll">
+          <div class="ticker-marquee">
+            <span class="ticker-item">📢 <a href="members.html#seminars">Registration open for Half-Day Seminar on Union Budget 2026 Scheduled on July 10th.</a><span class="badge-new">NEW</span></span>
+            <span class="ticker-item">📢 <a href="students.html#coaching">Admissions open for intermediate and final coaching classes starting August 1st.</a></span>
+            <span class="ticker-item">📢 <a href="about.html#committee">Vijayawada Branch Managing Committee for the term 2025-2028 announced.</a></span>
+            <span class="ticker-item">📢 <a href="members.html#newsletters">Monthly newsletter for June 2026 is now available for download.</a></span>
+          </div>
+        </div>
+        <button id="btn-ticker-toggle" class="acc-btn" style="margin-left:10px" aria-label="Pause ticker scroll">⏸ Pause</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Carousel Slider Banner -->
+  <section class="banner-carousel" aria-label="Branch Highlights Carousel">
+    <div class="carousel-slide active">
+      <img src="assets/images/slide1.svg" alt="Vijayawada Branch Premises Banner" class="carousel-img">
+      <div class="carousel-caption">
+        <h2>Vijayawada Branch Premises</h2>
+        <p>Providing state-of-the-art reading rooms, library infrastructure, and conference halls for members and students.</p>
+      </div>
+    </div>
+    
+    <div class="carousel-slide">
+      <img src="assets/images/slide2.svg" alt="CPE Seminars & Conferences Banner" class="carousel-img">
+      <div class="carousel-caption">
+        <h2>Continuous Professional Education</h2>
+        <p>Organizing timely seminars, workshops, and study circle meetings to keep our members updated with changing laws.</p>
+      </div>
+    </div>
+    
+    <div class="carousel-slide">
+      <img src="assets/images/slide3.svg" alt="SICASA Student Chapter Banner" class="carousel-img">
+      <div class="carousel-caption">
+        <h2>SICASA Student Association</h2>
+        <p>Facilitating quizzes, elocution contests, seminars, and sports meets to ensure all-round development of students.</p>
+      </div>
+    </div>
+    
+    <button class="carousel-control carousel-prev" aria-label="Previous Slide">‹</button>
+    <button class="carousel-control carousel-next" aria-label="Next Slide">›</button>
+  </section>
+
+  <!-- 7. Main Grid Layout -->
+  <main class="main-content-grid">
+    <div class="container">
+      <div class="main-grid">
+        
+        <!-- Column 1: Chairman's Message -->
+        <article class="info-card" aria-label="Chairman's Desk">
+          <div class="card-title-header">
+            <h2 class="card-title">From the Chairman's Desk</h2>
+          </div>
+          <div class="chairman-profile">
+            <img src="assets/images/chairman-message.svg" alt="CA. Chairman Portrait" class="chairman-photo">
+            <h3 class="chairman-name">CA. Prasad Rao K.V.S.</h3>
+            <span class="chairman-title">Chairman, Vijayawada Branch</span>
+          </div>
+          <p class="chairman-message-preview">
+            "Dear Professional Colleagues, it is an honor to serve as the Chairman of the Vijayawada Branch of SIRC of ICAI. Our branch has always stood for academic excellence, professional integrity, and active community development. For the term 2026, we are organizing advanced CPE seminars on Artificial Intelligence in Audit, GST modifications, and direct taxes..."
+          </p>
+          <a href="about.html#message" class="view-all-link mt-2" style="align-self: flex-start;">Read Full Message →</a>
+        </article>
+
+        <!-- Column 2: Bulletin Board Notice Board -->
+        <section class="info-card" id="notice-board" aria-label="Announcements Board">
+          <div class="card-title-header">
+            <h2 class="card-title">Branch Announcements</h2>
+            <a href="members.html#newsletters" class="view-all-link">View All</a>
+          </div>
+          <div class="notice-board-container">
+            <ul class="notice-list">
+              <li class="notice-item">
+                <span class="notice-date">📅 June 15, 2026 <span class="badge-new">NEW</span></span>
+                <a href="members.html#seminars" class="notice-link">Seminar on GST Audit Reconciliation and Annual Return Filing (GSTR-9 &amp; 9C).</a>
+              </li>
+              <li class="notice-item">
+                <span class="notice-date">📅 June 10, 2026</span>
+                <a href="students.html#coaching" class="notice-link">Coaching Classes schedule for Intermediate (Group 1 &amp; 2) for Nov 2026 exams.</a>
+              </li>
+              <li class="notice-item">
+                <span class="notice-date">📅 June 05, 2026</span>
+                <a href="members.html#newsletters" class="notice-link">Notification regarding Revision of Library Timings for Students.</a>
+              </li>
+              <li class="notice-item">
+                <span class="notice-date">📅 May 28, 2026</span>
+                <a href="contact.html" class="notice-link">Empanelment open for Guest Faculty members for Direct Tax &amp; Audit classes.</a>
+              </li>
+              <li class="notice-item">
+                <span class="notice-date">📅 May 20, 2026</span>
+                <a href="members.html#newsletters" class="notice-link">Guidelines for members claiming exemption under structured CPE hours requirements.</a>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Column 3: CPE Seminars Table -->
+        <section class="info-card" aria-label="CPE Events Table">
+          <div class="card-title-header">
+            <h2 class="card-title">CPE Seminars &amp; Events</h2>
+            <a href="members.html#seminars" class="view-all-link">Full Schedule</a>
+          </div>
+          <div class="events-table-wrapper">
+            <table class="cpe-table">
+              <thead>
+                <tr>
+                  <th>Date &amp; Time</th>
+                  <th>Topic &amp; Speaker</th>
+                  <th>Hrs/Fee</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>25 Jun 2026</strong><br>09:30 AM</td>
+                  <td><strong>AI &amp; Automation in Audit</strong><br>CA. Sriram Raghavan</td>
+                  <td>6 hrs<br>₹ 500/-</td>
+                  <td><button class="cpe-btn" data-topic="AI &amp; Automation in Audit">Register</button></td>
+                </tr>
+                <tr>
+                  <td><strong>02 Jul 2026</strong><br>02:00 PM</td>
+                  <td><strong>Recent Changes in GST Law</strong><br>CA. Madhavan Swamy</td>
+                  <td>3 hrs<br>₹ 300/-</td>
+                  <td><button class="cpe-btn" data-topic="Recent Changes in GST Law">Register</button></td>
+                </tr>
+                <tr>
+                  <td><strong>10 Jul 2026</strong><br>09:30 AM</td>
+                  <td><strong>Seminar on Union Budget 2026</strong><br>CA. K. Chidambaram</td>
+                  <td>6 hrs<br>₹ 600/-</td>
+                  <td><button class="cpe-btn" data-topic="Seminar on Union Budget 2026">Register</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        
+      </div>
+    </div>
+  </main>
+
+  <!-- 8. Portals Grid Section -->
+  <section class="portals-section" aria-label="Important Portals Links">
+    <div class="container">
+      <div class="portals-grid">
+        <a href="https://ssp.icai.org/" target="_blank" rel="noopener" class="portal-card">
+          <span class="portal-icon">👤</span>
+          <span class="portal-name">Self Service Portal (SSP)</span>
+        </a>
+        <a href="https://udin.icai.org/" target="_blank" rel="noopener" class="portal-card">
+          <span class="portal-icon">📋</span>
+          <span class="portal-name">UDIN Generation Portal</span>
+        </a>
+        <a href="https://learning.icai.org/" target="_blank" rel="noopener" class="portal-card">
+          <span class="portal-icon">💻</span>
+          <span class="portal-name">Digital Learning Hub</span>
+        </a>
+        <a href="https://www.cpeicai.org/" target="_blank" rel="noopener" class="portal-card">
+          <span class="portal-icon">📚</span>
+          <span class="portal-name">CPE Hours Dashboard</span>
+        </a>
+        <a href="https://boslive.icai.org/" target="_blank" rel="noopener" class="portal-card">
+          <span class="portal-icon">🎓</span>
+          <span class="portal-name">BoS Knowledge Portal</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Column 1: Info -->
+        <div class="footer-col">
+          <h3>Vijayawada Branch</h3>
+          <p class="footer-address">
+            ICAI Bhawan, D.No: 54-19-4/1,<br>
+            Near Ring Road, Kanuru Road,<br>
+            Vijayawada - 520008,<br>
+            Andhra Pradesh, India.<br>
+            📞 Phone: +91 866-2495966<br>
+            ✉ Email: vijayawada@icai.org
+          </p>
+        </div>
+
+        <!-- Column 2: Quick links -->
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="about.html#profile">About Branch</a></li>
+            <li><a href="about.html#committee">Managing Committee</a></li>
+            <li><a href="members.html#seminars">CPE Calendar</a></li>
+            <li><a href="students.html#coaching">Coaching Classes</a></li>
+            <li><a href="contact.html">Contact/Query Desk</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Important Sites -->
+        <div class="footer-col">
+          <h3>Important Links</h3>
+          <ul class="footer-links">
+            <li><a href="https://www.icai.org/" target="_blank" rel="noopener">ICAI National Website</a></li>
+            <li><a href="https://sirc-icai.org/" target="_blank" rel="noopener">SIRC of ICAI Website</a></li>
+            <li><a href="https://udin.icai.org/" target="_blank" rel="noopener">UDIN Portal</a></li>
+            <li><a href="https://ssp.icai.org/" target="_blank" rel="noopener">SSP Login</a></li>
+            <li><a href="https://www.cpeicai.org/" target="_blank" rel="noopener">CPE Directorate</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Counter -->
+        <div class="footer-col">
+          <h3>Portal Activity</h3>
+          <div class="visitor-counter" aria-live="polite">
+            <div class="counter-title">Visitor Count</div>
+            <div class="counter-digits" id="counter-digits">
+              <!-- Rendered via Javascript -->
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+            </div>
+          </div>
+          <div class="mt-2">
+            <span class="secure-cloud-badge">🛡 SECURED SSL CLOUD SERVER</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-bottom-flex">
+          <div>
+            © 2026 Vijayawada Branch of SIRC of ICAI. All Rights Reserved.
+          </div>
+          <div>
+            Hosted on secure cloud platform aligned with GIGW guidelines. | <a href="#" style="color:#d4af37">Disclaimer</a> | <a href="#" style="color:#d4af37">Privacy Policy</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About the Vijayawada Branch of SIRC of ICAI: Managing Committee, Chairman's Message, Past Chairmen, and Gallery of local activities.">
+  <title>About Us | Vijayawada Branch of SIRC of ICAI</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- 1. Indian Colors Top Strip -->
+  <div class="national-strip" role="presentation"></div>
+
+  <!-- 2. Accessibility & Top Utility Bar -->
+  <header class="top-bar" aria-label="Accessibility and Quick Links">
+    <div class="container">
+      <div class="top-bar-left">
+        <a href="https://www.icai.org/" target="_blank" rel="noopener">ICAI National Portal</a>
+        <a href="https://sirc-icai.org/" target="_blank" rel="noopener">SIRC of ICAI</a>
+      </div>
+      <div class="top-bar-right">
+        <div class="accessibility-controls" aria-label="Text Size Controls">
+          <span>Text Size:</span>
+          <button class="acc-btn" id="btn-font-small" title="Decrease Font Size" aria-label="Decrease Font Size">A-</button>
+          <button class="acc-btn" id="btn-font-normal" title="Normal Font Size" aria-label="Normal Font Size">A</button>
+          <button class="acc-btn" id="btn-font-large" title="Increase Font Size" aria-label="Increase Font Size">A+</button>
+        </div>
+        <div class="accessibility-controls" aria-label="Color Theme Controls">
+          <span>Contrast:</span>
+          <button class="acc-btn" id="btn-contrast-normal" title="Standard Theme" aria-label="Standard Theme">Standard</button>
+          <button class="acc-btn" id="btn-contrast-high" style="background:#000; color:#fff000; border-color:#fff000" title="High Contrast Theme" aria-label="High Contrast Theme">High Contrast</button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 3. Main Identity Banner -->
+  <div class="main-header" role="banner">
+    <div class="container">
+      <div class="brand-wrapper">
+        <img src="assets/images/icai-logo.svg" alt="ICAI Crest Logo" class="logo-icai">
+        <div class="brand-titles">
+          <span class="brand-title-en">Vijayawada Branch of SIRC of</span>
+          <h2 class="brand-subtitle-en" style="font-size:1.15rem; font-weight:700">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h2>
+          <span class="brand-desc">(Set up by an Act of Parliament)</span>
+        </div>
+      </div>
+      <div class="header-right">
+        <img src="assets/images/sicasa-logo.svg" alt="SICASA Student Association Logo" class="logo-sicasa">
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Navigation Menu -->
+  <nav class="nav-bar" aria-label="Main Navigation">
+    <div class="container">
+      <button class="mobile-nav-toggle" id="mobile-toggle" aria-expanded="false" aria-controls="main-menu" aria-label="Toggle navigation menu">
+        ☰ Menu
+      </button>
+      <ul class="nav-menu" id="main-menu">
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link" style="color: var(--gold-accent);">About Us ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="about.html#profile" class="dropdown-link">About Vijayawada Branch</a></li>
+            <li><a href="about.html#message" class="dropdown-link">Chairman's Message</a></li>
+            <li><a href="about.html#committee" class="dropdown-link">Managing Committee</a></li>
+            <li><a href="about.html#past-chairmen" class="dropdown-link">Past Chairmen</a></li>
+            <li><a href="about.html#gallery" class="dropdown-link">Photo Gallery</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">Members ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="members.html#seminars" class="dropdown-link">CPE Seminars / Events</a></li>
+            <li><a href="members.html#hours-tracker" class="dropdown-link">CPE Hours Tracker</a></li>
+            <li><a href="members.html#newsletters" class="dropdown-link">Monthly Newsletters</a></li>
+            <li><a href="index.html#notice-board" class="dropdown-link">Member Announcements</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">Students ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="students.html#sicasa" class="dropdown-link">SICASA Committee</a></li>
+            <li><a href="students.html#coaching" class="dropdown-link">Coaching Classes</a></li>
+            <li><a href="students.html#student-events" class="dropdown-link">Upcoming Student Events</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a href="#" class="nav-link">Announcements ▾</a>
+          <ul class="dropdown-menu">
+            <li><a href="index.html#notice-board" class="dropdown-link">General Announcements</a></li>
+            <li><a href="members.html#newsletters" class="dropdown-link">Circulars &amp; Notification PDFs</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item"><a href="contact.html" class="nav-link">Contact Us</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 5. Page Banner / Header -->
+  <section class="page-banner" aria-label="Page Header">
+    <div class="container">
+      <h1>About Vijayawada Branch</h1>
+      <div class="page-breadcrumbs">Home &gt; About Us</div>
+    </div>
+  </section>
+
+  <!-- 6. Page Content Layout -->
+  <main class="page-layout container">
+    <!-- Sidebar navigation -->
+    <aside aria-label="Sidebar Menu">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active" id="side-item-profile"><a href="#profile" class="sidebar-link">Branch Profile</a></li>
+        <li class="sidebar-item" id="side-item-message"><a href="#message" class="sidebar-link">Chairman's Message</a></li>
+        <li class="sidebar-item" id="side-item-committee"><a href="#committee" class="sidebar-link">Managing Committee</a></li>
+        <li class="sidebar-item" id="side-item-past"><a href="#past-chairmen" class="sidebar-link">Past Chairmen</a></li>
+        <li class="sidebar-item" id="side-item-gallery"><a href="#gallery" class="sidebar-link">Photo Gallery</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Text Section -->
+    <section class="info-card" id="main-content-section" aria-label="About Information Panel">
+      
+      <!-- Branch Profile Section -->
+      <article id="profile">
+        <h2 class="card-title-header" style="color:var(--primary-blue)">Vijayawada Branch Profile</h2>
+        <p class="mb-2">
+          The Vijayawada Branch of Southern India Regional Council (SIRC) of The Institute of Chartered Accountants of India (ICAI) was established on <strong>June 1, 1973</strong>. Over the last five decades, the branch has grown dynamically, responding to the growing needs of CA professionals and students in Vijayawada, Guntur, and surrounding parts of Krishna &amp; NTR districts.
+        </p>
+        <p class="mb-2">
+          Our branch caters to more than <strong>1,800 Chartered Accountants</strong> and over <strong>8,000 CA students</strong>. The branch facilities include:
+        </p>
+        <ul style="margin-left:25px; margin-bottom:15px">
+          <li>A fully equipped library with digital resource subscriptions.</li>
+          <li>Two modern air-conditioned reading rooms open 12 hours a day.</li>
+          <li>A seminar hall with 250+ seating capacity for hosting CPE conferences.</li>
+          <li>An integrated IT and computer training lab for AICITSS training.</li>
+        </ul>
+      </article>
+
+      <hr style="border:0; border-top: 1px solid var(--border-color); margin:30px 0;">
+
+      <!-- Chairman's Message Section -->
+      <article id="message">
+        <h2 class="card-title-header" style="color:var(--primary-blue)">Chairman's Message</h2>
+        <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;" class="mb-2">
+          <img src="assets/images/chairman-message.svg" alt="CA. Prasad Rao K.V.S. Chairman Portrait" class="chairman-photo" style="width:160px; height:160px;">
+          <div style="flex-grow: 1;">
+            <h3 class="chairman-name" style="font-size:1.15rem">CA. Prasad Rao K.V.S.</h3>
+            <span class="chairman-title">Chairman, Vijayawada Branch (Term 2026)</span>
+            <p class="mt-2" style="font-style: italic; color:var(--text-muted)">"Integrity, Professional Excellence, and Lifelong Learning"</p>
+          </div>
+        </div>
+        <p class="mb-2">
+          Dear Colleagues,
+        </p>
+        <p class="mb-2">
+          It gives me immense pleasure to address you through our official web portal. As Chartered Accountants, we are the trustees of financial discipline and corporate governance. In this age of rapid digitalization, automation, and expanding tax laws, the role of a Chartered Accountant has transformed from a traditional auditor to a strategic business advisor.
+        </p>
+        <p class="mb-2">
+          Our branch committee is committed to providing world-class professional training. We are lining up intensive coaching programs for our students under the new scheme of education, and scheduling seminars on digital assets taxation, international audit standards, and real-time ledger auditing tools.
+        </p>
+        <p class="mb-2">
+          I welcome active participation from all members in our CPE circles and encourage students to actively participate in the SICASA forums.
+        </p>
+        <p class="mb-2">
+          Sincerely,<br>
+          <strong>CA. Prasad Rao K.V.S.</strong>
+        </p>
+      </article>
+
+      <hr style="border:0; border-top: 1px solid var(--border-color); margin:30px 0;">
+
+      <!-- Managing Committee Section -->
+      <article id="committee">
+        <h2 class="card-title-header" style="color:var(--primary-blue)">Managing Committee (2025 - 2028)</h2>
+        <p class="mb-2">Meet the office bearers and members of the Vijayawada Branch Managing Committee:</p>
+        <div class="committee-grid">
+          
+          <div class="member-card">
+            <img src="assets/images/chairman-message.svg" alt="CA. Prasad Rao K.V.S. Portrait" class="member-photo">
+            <h3 class="member-name">CA. Prasad Rao K.V.S.</h3>
+            <span class="member-role">Chairman</span>
+            <div class="member-contact">📞 +91 94401 22934<br>✉ prasad.rao@icai.org</div>
+          </div>
+
+          <div class="member-card">
+            <!-- Reuse Chairman styling silhouette -->
+            <img src="assets/images/chairman-message.svg" alt="CA. Srinivasa Murthy Portrait" class="member-photo" style="filter: hue-rotate(60deg);">
+            <h3 class="member-name">CA. Srinivasa Murthy Y.</h3>
+            <span class="member-role">Vice Chairman</span>
+            <div class="member-contact">📞 +91 98481 18492<br>✉ vicechair.vij@icai.org</div>
+          </div>
+
+          <div class="member-card">
+            <img src="assets/images/chairman-message.svg" alt="CA. Ramana Murthy Portrait" class="member-photo" style="filter: hue-rotate(120deg);">
+            <h3 class="member-name">CA. Ramana Murthy T.</h3>
+            <span class="member-role">Secretary</span>
+            <div class="member-contact">📞 +91 93913 22910<br>✉ secretary.vij@icai.org</div>
+          </div>
+
+          <div class="member-card">
+            <img src="assets/images/chairman-message.svg" alt="CA. Hari Krishna Portrait" class="member-photo" style="filter: hue-rotate(180deg);">
+            <h3 class="member-name">CA. Hari Krishna K.</h3>
+            <span class="member-role">Treasurer</span>
+            <div class="member-contact">📞 +91 98664 12894<br>✉ treasurer.vij@icai.org</div>
+          </div>
+
+          <div class="member-card">
+            <img src="assets/images/chairman-message.svg" alt="CA. Lakshmi Kanth Portrait" class="member-photo" style="filter: hue-rotate(240deg);">
+            <h3 class="member-name">CA. Lakshmi Kanth B.</h3>
+            <span class="member-role">SICASA Chairman</span>
+            <div class="member-contact">📞 +91 93481 29482<br>✉ sicasachair.vij@icai.org</div>
+          </div>
+
+          <div class="member-card">
+            <img src="assets/images/chairman-message.svg" alt="CA. Venkateswarlu Portrait" class="member-photo" style="filter: hue-rotate(300deg);">
+            <h3 class="member-name">CA. Venkateswarlu P.</h3>
+            <span class="member-role">Committee Member</span>
+            <div class="member-contact">📞 +91 94405 19283<br>✉ venkat.p@icai.org</div>
+          </div>
+
+        </div>
+      </article>
+
+      <hr style="border:0; border-top: 1px solid var(--border-color); margin:30px 0;">
+
+      <!-- Past Chairmen Section -->
+      <article id="past-chairmen">
+        <h2 class="card-title-header" style="color:var(--primary-blue)">Past Chairmen Table</h2>
+        <p class="mb-2">We remember the leadership and guidance provided by our past branch chairmen:</p>
+        <div class="events-table-wrapper">
+          <table class="cpe-table">
+            <thead>
+              <tr>
+                <th>Year</th>
+                <th>Name of the Chairman</th>
+                <th>Membership No.</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>2024 - 2025</td>
+                <td><strong>CA. Rama Krishna G.</strong></td>
+                <td>M.No: 084729</td>
+              </tr>
+              <tr>
+                <td>2023 - 2024</td>
+                <td><strong>CA. Satyanarayana M.</strong></td>
+                <td>M.No: 072894</td>
+              </tr>
+              <tr>
+                <td>2022 - 2023</td>
+                <td><strong>CA. Nageswara Rao P.</strong></td>
+                <td>M.No: 028491</td>
+              </tr>
+              <tr>
+                <td>2021 - 2022</td>
+                <td><strong>CA. Subba Rao V.</strong></td>
+                <td>M.No: 082910</td>
+              </tr>
+              <tr>
+                <td>2020 - 2021</td>
+                <td><strong>CA. Kishore Kumar B.</strong></td>
+                <td>M.No: 074812</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <hr style="border:0; border-top: 1px solid var(--border-color); margin:30px 0;">
+
+      <!-- Photo Gallery Section -->
+      <article id="gallery">
+        <h2 class="card-title-header" style="color:var(--primary-blue)">Photo Gallery</h2>
+        <p class="mb-2">Glimpses of recent seminars, academic meetings, and social activities at the Vijayawada Branch:</p>
+        <div class="committee-grid">
+          
+          <div style="border: 1px solid var(--border-color); padding: 5px; background:var(--bg-offset); text-align: center;">
+            <img src="assets/images/slide1.svg" alt="Seminar Hall Event" style="width:100%; height:120px; object-fit:cover;">
+            <span style="font-size:0.75rem; font-weight:600; display:block; padding:5px 0;">CPE Seminar on AI in Audit (2026)</span>
+          </div>
+
+          <div style="border: 1px solid var(--border-color); padding: 5px; background:var(--bg-offset); text-align: center;">
+            <img src="assets/images/slide2.svg" alt="Coaching Classes In session" style="width:100%; height:120px; object-fit:cover;">
+            <span style="font-size:0.75rem; font-weight:600; display:block; padding:5px 0;">Foundation Coaching Classes (2026)</span>
+          </div>
+
+          <div style="border: 1px solid var(--border-color); padding: 5px; background:var(--bg-offset); text-align: center;">
+            <img src="assets/images/slide3.svg" alt="SICASA Annual Meeting" style="width:100%; height:120px; object-fit:cover;">
+            <span style="font-size:0.75rem; font-weight:600; display:block; padding:5px 0;">SICASA Sports Meet Awards (2025)</span>
+          </div>
+
+          <div style="border: 1px solid var(--border-color); padding: 5px; background:var(--bg-offset); text-align: center;">
+            <!-- Re-use map placeholder or slides as gallery placeholder -->
+            <img src="assets/images/map-placeholder.svg" alt="Vijayawada Branch Premises Map Pin Visual" style="width:100%; height:120px; object-fit:cover;">
+            <span style="font-size:0.75rem; font-weight:600; display:block; padding:5px 0;">Republic Day Celebrations (2026)</span>
+          </div>
+
+        </div>
+      </article>
+
+    </section>
+  </main>
+
+  <!-- 7. Footer -->
+  <footer class="main-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>Vijayawada Branch</h3>
+          <p class="footer-address">
+            ICAI Bhawan, D.No: 54-19-4/1,<br>
+            Near Ring Road, Kanuru Road,<br>
+            Vijayawada - 520008,<br>
+            Andhra Pradesh, India.<br>
+            📞 Phone: +91 866-2495966<br>
+            ✉ Email: vijayawada@icai.org
+          </p>
+        </div>
+        <div class="footer-col">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="about.html#profile">About Branch</a></li>
+            <li><a href="about.html#committee">Managing Committee</a></li>
+            <li><a href="members.html#seminars">CPE Calendar</a></li>
+            <li><a href="students.html#coaching">Coaching Classes</a></li>
+            <li><a href="contact.html">Contact/Query Desk</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Important Links</h3>
+          <ul class="footer-links">
+            <li><a href="https://www.icai.org/" target="_blank" rel="noopener">ICAI National Website</a></li>
+            <li><a href="https://sirc-icai.org/" target="_blank" rel="noopener">SIRC of ICAI Website</a></li>
+            <li><a href="https://udin.icai.org/" target="_blank" rel="noopener">UDIN Portal</a></li>
+            <li><a href="https://ssp.icai.org/" target="_blank" rel="noopener">SSP Login</a></li>
+            <li><a href="https://www.cpeicai.org/" target="_blank" rel="noopener">CPE Directorate</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Portal Activity</h3>
+          <div class="visitor-counter" aria-live="polite">
+            <div class="counter-title">Visitor Count</div>
+            <div class="counter-digits" id="counter-digits">
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+              <span class="digit-box">0</span>
+            </div>
+          </div>
+          <div class="mt-2">
+            <span class="secure-cloud-badge">🛡 SECURED SSL CLOUD SERVER</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-bottom-flex">
+          <div>© 2026 Vijayawada Branch of SIRC of ICAI. All Rights Reserved.</div>
+          <div>Hosted on secure cloud platform aligned with GIGW guidelines. | <a href="#" style="color:#d4af37">Disclaimer</a> | <a href="#" style="color:#d4af37">Privacy Policy</a></div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

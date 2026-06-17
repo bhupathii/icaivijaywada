@@ -1,0 +1,1246 @@
+/* 
+   ICAI Vijayawada Branch Portal Stylesheet
+   Designed for institutional authority, maximum legibility, and full accessibility.
+*/
+
+/* ----------------------------------------------------
+   1. Theme Variables & Fonts
+   ---------------------------------------------------- */
+:root {
+  --primary-blue: #1b365d;
+  --secondary-blue: #144d8d;
+  --primary-gold: #c5a059;
+  --gold-accent: #d4af37;
+  --gold-light: #fdfaf2;
+  --bg-color: #ffffff;
+  --bg-offset: #f5f7fa;
+  --text-color: #333333;
+  --text-muted: #666666;
+  --border-color: #dddddd;
+  --card-bg: #ffffff;
+  --link-color: #144c8c;
+  --link-hover: #d4af37;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --marquee-bg: #fff7e6;
+  --marquee-border: #ffd591;
+  --marquee-text: #c05621;
+  
+  --base-font-size: 16px;
+  --font-family: "Segoe UI", Arial, sans-serif;
+  --transition-speed: 0.3s;
+}
+
+/* High Contrast Mode */
+body.high-contrast {
+  --primary-blue: #000000;
+  --secondary-blue: #000000;
+  --primary-gold: #ffff00;
+  --gold-accent: #ffff00;
+  --gold-light: #111111;
+  --bg-color: #000000;
+  --bg-offset: #111111;
+  --text-color: #ffff00;
+  --text-muted: #ffff00;
+  --border-color: #ffff00;
+  --card-bg: #000000;
+  --link-color: #ffff00;
+  --link-hover: #ffffff;
+  --success-color: #ffff00;
+  --danger-color: #ffff00;
+  --marquee-bg: #000000;
+  --marquee-border: #ffff00;
+  --marquee-text: #ffff00;
+}
+
+/* Font Sizing Scale Overrides */
+html.font-small {
+  --base-font-size: 14px;
+}
+html.font-large {
+  --base-font-size: 18px;
+}
+
+/* ----------------------------------------------------
+   2. Reset & Document Settings
+   ---------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--base-font-size);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color var(--transition-speed);
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+/* ----------------------------------------------------
+   3. Utility Classes
+   ---------------------------------------------------- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  width: 100%;
+}
+
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+
+.badge-new {
+  background-color: var(--danger-color);
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  animation: blinker 1.5s linear infinite;
+}
+
+body.high-contrast .badge-new {
+  background-color: #000000;
+  color: #ffff00;
+  border: 1px solid #ffff00;
+}
+
+@keyframes blinker {
+  50% { opacity: 0; }
+}
+
+/* ----------------------------------------------------
+   4. India Colors Top Strip
+   ---------------------------------------------------- */
+.national-strip {
+  height: 4px;
+  background: linear-gradient(to right, #ff9933 33.3%, #ffffff 33.3%, #ffffff 66.6%, #138808 66.6%);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+/* ----------------------------------------------------
+   5. Accessibility & Top Utility Bar
+   ---------------------------------------------------- */
+.top-bar {
+  background-color: var(--bg-offset);
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  padding: 6px 0;
+}
+
+.top-bar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.top-bar-left {
+  display: flex;
+  gap: 15px;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.accessibility-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.acc-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  color: var(--text-color);
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.acc-btn:hover {
+  background: var(--primary-blue);
+  color: #ffffff;
+  border-color: var(--primary-blue);
+}
+
+body.high-contrast .acc-btn:hover {
+  background: #ffff00;
+  color: #000000;
+  border-color: #ffff00;
+}
+
+/* ----------------------------------------------------
+   6. Main Identity Header
+   ---------------------------------------------------- */
+.main-header {
+  padding: 15px 0;
+  background-color: var(--bg-color);
+  border-bottom: 3px solid var(--primary-gold);
+}
+
+.main-header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-icai {
+  height: 80px;
+  width: auto;
+}
+
+.logo-sicasa {
+  height: 65px;
+  width: auto;
+}
+
+.brand-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title-en {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  line-height: 1.2;
+}
+
+.brand-subtitle-en {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-top: 3px;
+}
+
+.brand-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* ----------------------------------------------------
+   7. Navigation Bar (Dropdown Navigation)
+   ---------------------------------------------------- */
+.nav-bar {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 2px solid var(--gold-accent);
+}
+
+.nav-bar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: block;
+  padding: 12px 18px;
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+body.high-contrast .nav-link {
+  color: #ffff00;
+}
+
+.nav-link:hover,
+.nav-item:hover .nav-link {
+  background-color: var(--secondary-blue);
+  color: var(--gold-accent);
+  text-decoration: none;
+}
+
+/* Dropdown styling */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--primary-blue);
+  list-style: none;
+  min-width: 220px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  display: none;
+  border-top: 2px solid var(--gold-accent);
+}
+
+body.high-contrast .dropdown-menu {
+  border: 1px solid #ffff00;
+}
+
+.dropdown-menu .dropdown-link {
+  display: block;
+  padding: 10px 15px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+body.high-contrast .dropdown-menu .dropdown-link {
+  color: #ffff00;
+  border-bottom: 1px solid #ffff00;
+}
+
+.dropdown-menu .dropdown-link:hover {
+  background-color: var(--secondary-blue);
+  color: var(--gold-accent);
+}
+
+.nav-item:hover .dropdown-menu {
+  display: block;
+}
+
+/* Mobile Hamburger Menu icon */
+.mobile-nav-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px 12px;
+}
+
+body.high-contrast .mobile-nav-toggle {
+  color: #ffff00;
+}
+
+/* ----------------------------------------------------
+   8. Live Notice Marquee
+   ---------------------------------------------------- */
+.news-ticker-section {
+  background-color: var(--marquee-bg);
+  border-bottom: 1px solid var(--marquee-border);
+  padding: 8px 0;
+}
+
+.ticker-wrapper {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ticker-label {
+  background-color: var(--danger-color);
+  color: #ffffff;
+  padding: 4px 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  white-space: nowrap;
+  border-radius: 3px;
+  margin-right: 15px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+body.high-contrast .ticker-label {
+  background-color: #000000;
+  color: #ffff00;
+  border: 1px solid #ffff00;
+}
+
+.ticker-scroll {
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.ticker-marquee {
+  white-space: nowrap;
+  display: inline-block;
+  animation: marquee 25s linear infinite;
+  font-size: 0.9rem;
+  color: var(--marquee-text);
+  font-weight: 600;
+}
+
+.ticker-marquee:hover {
+  animation-play-state: paused;
+}
+
+.ticker-item {
+  display: inline-block;
+  margin-right: 50px;
+}
+
+.ticker-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ticker-item a:hover {
+  text-decoration: underline;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* ----------------------------------------------------
+   9. Carousel / Banner Section
+   ---------------------------------------------------- */
+.banner-carousel {
+  position: relative;
+  width: 100%;
+  height: 380px;
+  background-color: #222;
+  overflow: hidden;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 10;
+}
+
+.carousel-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7);
+}
+
+.carousel-caption {
+  position: absolute;
+  bottom: 30px;
+  left: 10%;
+  right: 10%;
+  background-color: rgba(27, 54, 93, 0.85);
+  color: #ffffff;
+  padding: 15px 25px;
+  border-left: 5px solid var(--gold-accent);
+  border-radius: 0 4px 4px 0;
+  z-index: 20;
+}
+
+body.high-contrast .carousel-caption {
+  background-color: #000000;
+  border-color: #ffff00;
+  color: #ffff00;
+}
+
+.carousel-caption h2 {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  color: var(--gold-accent);
+}
+
+body.high-contrast .carousel-caption h2 {
+  color: #ffff00;
+}
+
+.carousel-caption p {
+  font-size: 0.95rem;
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0,0,0,0.5);
+  color: #ffffff;
+  border: none;
+  font-size: 1.5rem;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  z-index: 30;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+body.high-contrast .carousel-control {
+  border: 1px solid #ffff00;
+  color: #ffff00;
+  background-color: #000000;
+}
+
+.carousel-control:hover {
+  background-color: var(--primary-blue);
+  color: var(--gold-accent);
+}
+
+.carousel-prev { left: 20px; }
+.carousel-next { right: 20px; }
+
+/* ----------------------------------------------------
+   10. Main Grid Content Layout
+   ---------------------------------------------------- */
+.main-content-grid {
+  padding: 40px 0;
+  background-color: var(--bg-color);
+}
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 3fr 4fr 5fr;
+  gap: 30px;
+}
+
+/* Common Card Styles */
+.info-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-title-header {
+  border-bottom: 2px solid var(--primary-blue);
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+body.high-contrast .card-title-header {
+  border-bottom-color: #ffff00;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+body.high-contrast .card-title {
+  color: #ffff00;
+}
+
+.view-all-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--link-color);
+}
+
+/* Column 1: Chairman's Message */
+.chairman-profile {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.chairman-photo {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--primary-gold);
+  margin-bottom: 10px;
+}
+
+.chairman-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+.chairman-title {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.chairman-message-preview {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+/* Column 2: Notice Board (Scrolling Bulletins) */
+.notice-board-container {
+  max-height: 350px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.notice-list {
+  list-style: none;
+}
+
+.notice-item {
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.notice-item:last-child {
+  border-bottom: none;
+}
+
+.notice-date {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.notice-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.notice-link:hover {
+  color: var(--link-hover);
+}
+
+/* Column 3: CPE Seminars / Events Table */
+.events-table-wrapper {
+  overflow-x: auto;
+}
+
+.cpe-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.cpe-table th {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  font-weight: 600;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+}
+
+body.high-contrast .cpe-table th {
+  color: #ffff00;
+  background-color: #000000;
+}
+
+.cpe-table td {
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  vertical-align: middle;
+}
+
+.cpe-table tbody tr:nth-child(even) {
+  background-color: var(--bg-offset);
+}
+
+.cpe-table tbody tr:hover {
+  background-color: var(--gold-light);
+}
+
+.cpe-btn {
+  background-color: var(--success-color);
+  color: #ffffff;
+  border: none;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+body.high-contrast .cpe-btn {
+  background-color: #000000;
+  color: #ffff00;
+  border: 1px solid #ffff00;
+}
+
+.cpe-btn:hover {
+  opacity: 0.9;
+}
+
+/* ----------------------------------------------------
+   11. Quick Links / Portals Panel
+   ---------------------------------------------------- */
+.portals-section {
+  background-color: var(--bg-offset);
+  padding: 40px 0;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.portals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.portal-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+}
+
+.portal-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  border-color: var(--primary-blue);
+}
+
+body.high-contrast .portal-card:hover {
+  border-color: #ffff00;
+}
+
+.portal-icon {
+  font-size: 2.2rem;
+  color: var(--primary-blue);
+  margin-bottom: 10px;
+  display: block;
+}
+
+body.high-contrast .portal-icon {
+  color: #ffff00;
+}
+
+.portal-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+/* ----------------------------------------------------
+   12. Sub-page layouts (About, Members, Students, Contact)
+   ---------------------------------------------------- */
+.page-banner {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  padding: 30px 0;
+  border-bottom: 2px solid var(--gold-accent);
+}
+
+body.high-contrast .page-banner {
+  background-color: #000000;
+  color: #ffff00;
+}
+
+.page-banner h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.page-breadcrumbs {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: rgba(255,255,255,0.7);
+}
+
+body.high-contrast .page-breadcrumbs {
+  color: #ffff00;
+}
+
+.page-layout {
+  padding: 40px 0;
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  gap: 30px;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+  list-style: none;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--card-bg);
+  overflow: hidden;
+}
+
+.sidebar-item {
+  border-bottom: 1px solid var(--border-color);
+}
+
+.sidebar-item:last-child {
+  border-bottom: none;
+}
+
+.sidebar-link {
+  display: block;
+  padding: 12px 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.sidebar-link:hover,
+.sidebar-item.active .sidebar-link {
+  background-color: var(--gold-light);
+  color: var(--primary-blue);
+  text-decoration: none;
+}
+
+body.high-contrast .sidebar-link:hover,
+body.high-contrast .sidebar-item.active .sidebar-link {
+  background-color: #ffff00;
+  color: #000000;
+}
+
+/* Committee Profiles Grid */
+.committee-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.member-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 15px;
+  text-align: center;
+}
+
+.member-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+  border: 2px solid var(--border-color);
+}
+
+.member-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+}
+
+body.high-contrast .member-name {
+  color: #ffff00;
+}
+
+.member-role {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.member-contact {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+/* Institutional Tab Forms */
+.tab-container {
+  display: flex;
+  border-bottom: 2px solid var(--primary-blue);
+  margin-bottom: 20px;
+}
+
+body.high-contrast .tab-container {
+  border-bottom-color: #ffff00;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background: var(--bg-offset);
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-color);
+}
+
+.tab-btn.active {
+  background: var(--primary-blue);
+  color: #ffffff;
+  border-color: var(--primary-blue);
+}
+
+body.high-contrast .tab-btn.active {
+  background: #ffff00;
+  color: #000000;
+  border-color: #ffff00;
+}
+
+/* Institutional Styled Form */
+.gov-form {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  padding: 25px;
+  border-radius: 4px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  font-size: 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-blue);
+}
+
+body.high-contrast .form-control:focus {
+  border-color: #ffff00;
+}
+
+.btn-submit {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+body.high-contrast .btn-submit {
+  background-color: #000000;
+  color: #ffff00;
+  border: 1px solid #ffff00;
+}
+
+.btn-submit:hover {
+  opacity: 0.9;
+}
+
+/* ----------------------------------------------------
+   13. Institutional Footer
+   ---------------------------------------------------- */
+.main-footer {
+  background-color: var(--primary-blue);
+  color: #ffffff;
+  padding: 40px 0 20px 0;
+  border-top: 3px solid var(--gold-accent);
+}
+
+body.high-contrast .main-footer {
+  background-color: #000000;
+  color: #ffff00;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.footer-col h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-bottom: 2px solid var(--gold-accent);
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+  color: var(--gold-accent);
+}
+
+body.high-contrast .footer-col h3 {
+  color: #ffff00;
+  border-bottom-color: #ffff00;
+}
+
+.footer-links {
+  list-style: none;
+}
+
+.footer-links li {
+  margin-bottom: 8px;
+}
+
+.footer-links a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+body.high-contrast .footer-links a {
+  color: #ffff00;
+}
+
+.footer-links a:hover {
+  color: var(--gold-accent);
+  text-decoration: underline;
+}
+
+.footer-address {
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+
+body.high-contrast .footer-address {
+  color: #ffff00;
+}
+
+/* Visitor counter design */
+.visitor-counter {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin-top: 15px;
+  display: inline-block;
+}
+
+body.high-contrast .visitor-counter {
+  border: 1px solid #ffff00;
+  background-color: #000000;
+}
+
+.counter-title {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  color: var(--gold-accent);
+}
+
+body.high-contrast .counter-title {
+  color: #ffff00;
+}
+
+.counter-digits {
+  display: flex;
+  gap: 3px;
+}
+
+.digit-box {
+  background-color: #333333;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 2px;
+  border: 1px solid #555555;
+}
+
+body.high-contrast .digit-box {
+  background-color: #000000;
+  color: #ffff00;
+  border: 1px solid #ffff00;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+body.high-contrast .footer-bottom {
+  border-top-color: #ffff00;
+  color: #ffff00;
+}
+
+.footer-bottom-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.secure-cloud-badge {
+  background-color: rgba(25, 135, 84, 0.2);
+  color: #75b798;
+  border: 1px solid #478e69;
+  padding: 3px 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+body.high-contrast .secure-cloud-badge {
+  background-color: #000000;
+  color: #ffff00;
+  border: 1px solid #ffff00;
+}
+
+/* ----------------------------------------------------
+   14. Mobile Responsive Rules
+   ---------------------------------------------------- */
+@media (max-width: 991px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .page-layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .logo-icai {
+    height: 60px;
+  }
+  
+  .logo-sicasa {
+    height: 50px;
+  }
+  
+  .brand-title-en {
+    font-size: 1.1rem;
+  }
+  
+  .brand-subtitle-en {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .top-bar-right {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+  
+  .main-header .container {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .brand-wrapper {
+    flex-direction: column;
+  }
+  
+  .mobile-nav-toggle {
+    display: block;
+  }
+  
+  .nav-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: var(--primary-blue);
+    border-top: 1px solid rgba(255,255,255,0.1);
+  }
+  
+  .nav-menu.open {
+    display: flex;
+  }
+  
+  .nav-item {
+    width: 100%;
+  }
+  
+  .dropdown-menu {
+    position: static;
+    display: none;
+    box-shadow: none;
+    background-color: var(--secondary-blue);
+    padding-left: 15px;
+  }
+  
+  .nav-item:hover .dropdown-menu {
+    display: none; /* Disable hover triggers on mobile */
+  }
+  
+  .nav-item.active-mobile-dropdown .dropdown-menu {
+    display: block;
+  }
+  
+  .banner-carousel {
+    height: 250px;
+  }
+  
+  .carousel-caption {
+    bottom: 15px;
+    padding: 10px 15px;
+  }
+  
+  .carousel-caption h2 {
+    font-size: 1.1rem;
+  }
+  
+  .carousel-caption p {
+    font-size: 0.8rem;
+  }
+}

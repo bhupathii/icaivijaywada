@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="80" height="80">
+  <!-- Concentric Circles -->
+  <circle cx="50" cy="50" r="45" fill="#1b365d" stroke="#d4af37" stroke-width="2"/>
+  <circle cx="50" cy="50" r="38" fill="#ffffff" stroke="#d4af37" stroke-width="1"/>
+  
+  <!-- Garuda Symbol Core -->
+  <path d="M 50,22 C 43,26 33,28 25,32 C 32,42 33,52 38,62 C 44,60 46,58 50,55 C 54,58 56,60 62,62 C 67,52 68,42 75,32 C 67,28 57,26 50,22 Z" fill="#c5a059" stroke="#1b365d" stroke-width="1"/>
+  
+  <!-- Wings Details -->
+  <path d="M 27,35 C 31,43 32,50 36,57" fill="none" stroke="#1b365d" stroke-width="0.8"/>
+  <path d="M 31,37 C 34,44 35,50 38,55" fill="none" stroke="#1b365d" stroke-width="0.8"/>
+  <path d="M 73,35 C 69,43 68,50 64,57" fill="none" stroke="#1b365d" stroke-width="0.8"/>
+  <path d="M 69,37 C 66,44 65,50 62,55" fill="none" stroke="#1b365d" stroke-width="0.8"/>
+  
+  <!-- Central Emblem Shield -->
+  <ellipse cx="50" cy="42" rx="7" ry="9" fill="#1b365d" stroke="#d4af37" stroke-width="0.8"/>
+  
+  <!-- Sun Rays behind Eagle Head -->
+  <path d="M 50,15 L 50,19 M 46,16 L 48,19 M 54,16 L 52,19" stroke="#d4af37" stroke-width="0.8"/>
+  
+  <!-- Book / Scroll in Claw -->
+  <path d="M 42,65 Q 50,68 58,65 L 57,69 Q 50,71 43,69 Z" fill="#d4af37"/>
+  
+  <!-- Motto Banner Text -->
+  <path id="textPath-motto" d="M 32,77 Q 50,83 68,77" fill="none"/>
+  <text font-family="Arial, sans-serif" font-size="4.5" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    <textPath href="#textPath-motto" startOffset="50%">YA ESHU SUPTESHU JAGARTI</textPath>
+  </text>
+
+  <!-- Branch Label / Trust Text -->
+  <text x="50" y="88" font-family="Arial, sans-serif" font-size="3.8" font-weight="bold" fill="#d4af37" text-anchor="middle">ICAI ESTD. 1949</text>
+</svg>

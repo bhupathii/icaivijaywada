@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" width="100%" height="100%">
+  <!-- Backdrop gradient -->
+  <defs>
+    <linearGradient id="g3" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1b365d"/>
+      <stop offset="100%" stop-color="#0a192f"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="380" fill="url(#g3)"/>
+  
+  <!-- Stylized graduation cap outline graphic on right side -->
+  <g transform="translate(900, 190) scale(1.5)" opacity="0.12" stroke="#ffffff" stroke-width="2" fill="none">
+    <path d="M -80,-30 L 0,-60 L 80,-30 L 0,0 Z" />
+    <path d="M -40,-15 L -40,15 C -40,30 40,30 40,15 L 40,-15" />
+    <path d="M 60,-22 L 75,5 L 75,25" />
+    <circle cx="75" cy="28" r="3" fill="#ffffff" />
+  </g>
+  
+  <!-- Overlay elements -->
+  <path d="M 0,0 L 300,0 L 100,380 L 0,380 Z" fill="#c5a059" opacity="0.08"/>
+  
+  <!-- Text Content Area -->
+  <g transform="translate(100, 110)">
+    <rect x="-10" y="-10" width="480" height="4" fill="#d4af37"/>
+    <text x="0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="900" fill="#d4af37">STUDENT BOARD (SICASA)</text>
+    <text x="0" y="75" font-family="Segoe UI, Arial, sans-serif" font-size="44" font-weight="900" fill="#ffffff">COACHING CLASSES &amp; FORUMS</text>
+    <text x="0" y="120" font-family="Segoe UI, Arial, sans-serif" font-size="18" fill="#e2e8f0">Guiding the next generation of financial experts and Chartered Accountants</text>
+  </g>
+</svg>

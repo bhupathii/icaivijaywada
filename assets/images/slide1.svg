@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" width="100%" height="100%">
+  <!-- Backdrop gradient -->
+  <defs>
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0c2340"/>
+      <stop offset="50%" stop-color="#1b365d"/>
+      <stop offset="100%" stop-color="#2a4d7c"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="380" fill="url(#g1)"/>
+  
+  <!-- Stylized columns representing institutional architecture (Branch Premises mock-up) -->
+  <g opacity="0.15">
+    <rect x="100" y="50" width="1000" height="20" fill="#ffffff"/>
+    <rect x="120" y="70" width="40" height="260" fill="#ffffff"/>
+    <rect x="220" y="70" width="40" height="260" fill="#ffffff"/>
+    <rect x="320" y="70" width="40" height="260" fill="#ffffff"/>
+    <rect x="420" y="70" width="40" height="260" fill="#ffffff"/>
+    <rect x="740" y="70" width="40" height="260" fill="#ffffff"/>
+    <rect x="840" y="70" width="40" height="260" fill="#ffffff"/>
+    <rect x="940" y="70" width="40" height="260" fill="#ffffff"/>
+    <rect x="1040" y="70" width="40" height="260" fill="#ffffff"/>
+    <rect x="100" y="330" width="1000" height="30" fill="#ffffff"/>
+  </g>
+  
+  <!-- Overlay graphics for styling -->
+  <path d="M -100,380 L 400,100 L 600,380 Z" fill="#c5a059" opacity="0.12"/>
+  <path d="M 800,380 L 1100,50 L 1300,380 Z" fill="#ffffff" opacity="0.05"/>
+  
+  <!-- Emblem Graphic in center-right -->
+  <g transform="translate(600, 160) scale(1.8)" opacity="0.25">
+    <circle cx="0" cy="0" r="45" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <path d="M 0,-25 Q 15,-15 25,10 Q 0,25 -25,10 Q -15,-15 0,-25 Z" fill="#ffffff"/>
+  </g>
+  
+  <!-- Text Content Area -->
+  <g transform="translate(100, 110)">
+    <rect x="-10" y="-10" width="480" height="4" fill="#d4af37"/>
+    <text x="0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="900" fill="#d4af37">WELCOME TO ICAI VIJAYAWADA</text>
+    <text x="0" y="75" font-family="Segoe UI, Arial, sans-serif" font-size="44" font-weight="900" fill="#ffffff">BRANCH PREMISES &amp; LIBRARY</text>
+    <text x="0" y="120" font-family="Segoe UI, Arial, sans-serif" font-size="18" fill="#e2e8f0">Serving Chartered Accountants &amp; Students in Krishna District since 1973</text>
+  </g>
+</svg>

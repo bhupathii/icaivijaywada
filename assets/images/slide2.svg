@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 380" width="100%" height="100%">
+  <!-- Backdrop gradient -->
+  <defs>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#144d8d"/>
+      <stop offset="100%" stop-color="#071b30"/>
+    </linearGradient>
+  </defs>
+  
+  <rect width="1200" height="380" fill="url(#g2)"/>
+  
+  <!-- Stylized charts/grids indicating finance and education -->
+  <g opacity="0.1" stroke="#ffffff" stroke-width="1.5">
+    <line x1="800" y1="300" x2="1100" y2="300"/>
+    <line x1="800" y1="300" x2="800" y2="100"/>
+    <path d="M 800,280 Q 850,220 900,240 T 1000,150 T 1100,120" fill="none"/>
+    <circle cx="900" cy="240" r="4" fill="#ffffff"/>
+    <circle cx="1000" cy="150" r="4" fill="#ffffff"/>
+    <circle cx="1100" cy="120" r="4" fill="#ffffff"/>
+  </g>
+  
+  <!-- Overlay elements -->
+  <path d="M 500,-100 L 900,380 L 1200,380 L 800,-100 Z" fill="#d4af37" opacity="0.08"/>
+  
+  <!-- Text Content Area -->
+  <g transform="translate(100, 110)">
+    <rect x="-10" y="-10" width="480" height="4" fill="#d4af37"/>
+    <text x="0" y="30" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="900" fill="#d4af37">CONTINUOUS PROFESSIONAL EDUCATION</text>
+    <text x="0" y="75" font-family="Segoe UI, Arial, sans-serif" font-size="44" font-weight="900" fill="#ffffff">CPE SEMINARS &amp; WORKSHOPS</text>
+    <text x="0" y="120" font-family="Segoe UI, Arial, sans-serif" font-size="18" fill="#e2e8f0">Enhancing professional competency through structured interactive conferences</text>
+  </g>
+</svg>
