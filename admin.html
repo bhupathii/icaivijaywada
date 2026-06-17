@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Secured Admin Control Panel for managing ICAI Vijayawada branch website content.">
+  <title>Admin Dashboard | Vijayawada Branch of SIRC of ICAI</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .admin-container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 15px;
+    }
+    .login-card {
+      max-width: 400px;
+      margin: 80px auto;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 30px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .dashboard-wrapper {
+      display: none; /* Shown after auth */
+    }
+    .config-alert-card {
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 30px;
+      border: 2px dashed var(--primary-gold);
+      background: var(--gold-light);
+      border-radius: 4px;
+      text-align: center;
+    }
+    .admin-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      border-bottom: 2px solid var(--primary-blue);
+      padding-bottom: 15px;
+    }
+    .logout-btn {
+      background-color: var(--danger-color);
+      color: white;
+      border: none;
+      padding: 6px 15px;
+      cursor: pointer;
+      font-weight: 700;
+      border-radius: 3px;
+    }
+    .grid-form-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+    .action-cell {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-delete {
+      background-color: var(--danger-color);
+      color: white;
+      border: none;
+      padding: 3px 8px;
+      cursor: pointer;
+      border-radius: 3px;
+      font-size: 0.75rem;
+    }
+    .btn-delete:hover { opacity: 0.9; }
+  </style>
+</head>
+<body>
+
+  <!-- Indian Colors Top Strip -->
+  <div class="national-strip" role="presentation"></div>
+
+  <!-- Header Banner -->
+  <div class="main-header" role="banner">
+    <div class="container" style="justify-content: center; display: flex;">
+      <div class="brand-wrapper">
+        <img src="assets/images/icai-logo.svg" alt="ICAI Logo" class="logo-icai">
+        <div class="brand-titles">
+          <span class="brand-title-en">Vijayawada Branch of SIRC of</span>
+          <h2 class="brand-subtitle-en" style="font-size:1.15rem; font-weight:700">THE INSTITUTE OF CHARTERED ACCOUNTANTS OF INDIA</h2>
+          <span class="brand-desc">ADMIN PORTAL - CONTENT MANAGEMENT SYSTEM</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <main class="admin-container">
+
+    <!-- 1. Failsafe Config Alert: Shown if window.SUPABASE_URL is not set -->
+    <div class="config-alert-card" id="config-alert" style="display: none;">
+      <h2 style="color: var(--primary-blue); margin-bottom: 15px;">⚠️ Database Configuration Required</h2>
+      <p class="mb-2" style="font-size: 0.95rem;">
+        It looks like your database connection details are missing. To run this portal without mock data, please do the following:
+      </p>
+      <ol style="text-align: left; margin: 15px auto; max-width: 450px; line-height: 1.6; font-size: 0.9rem;">
+        <li>Locate <strong>config.example.js</strong> in your root project directory.</li>
+        <li>Duplicate it and rename the copy to <strong>config.js</strong>.</li>
+        <li>Open <strong>config.js</strong> and insert your Supabase <strong>API URL</strong> and <strong>Anon Key</strong>.</li>
+        <li>Refresh this page to initialize connection.</li>
+      </ol>
+      <div class="mt-2" style="font-size: 0.8rem; color: var(--text-muted);">
+        Note: Ensure you have run the queries in <code>schema.sql</code> inside your Supabase project to generate the required database tables.
+      </div>
+    </div>
+
+    <!-- 2. Login Card: Shown if not authenticated -->
+    <div class="login-card" id="login-container" style="display: none;">
+      <h2 class="text-center mb-2" style="color:var(--primary-blue);">Admin Authentication</h2>
+      <form id="admin-login-form">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Admin Email Address</label>
+          <input type="email" id="login-email" class="form-control" placeholder="admin@icai.org" required>
+        </div>
+        <div class="form-group mb-2">
+          <label class="form-label" for="login-password">Password</label>
+          <input type="password" id="login-password" class="form-control" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-submit" style="width: 100%;">🔑 Sign In to Console</button>
+      </form>
+      <div class="mt-2 text-center" style="font-size:0.75rem; color:var(--text-muted)">
+        Authorized branch personnel only. Sign-ins are logged.
+      </div>
+    </div>
+
+    <!-- 3. Authenticated Dashboard Panel: Shown after success -->
+    <div class="dashboard-wrapper" id="dashboard-container">
+      <div class="admin-header-flex">
+        <div>
+          <h1 style="color: var(--primary-blue); font-size: 1.6rem;">Welcome, Admin Console</h1>
+          <span style="font-size: 0.8rem; color: var(--text-muted);" id="user-email-display">Logged in as admin</span>
+        </div>
+        <button class="logout-btn" id="btn-admin-logout">🚪 Log Out</button>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="tab-container" style="margin-bottom: 30px;">
+        <button class="tab-btn active" data-target="tab-announcements">📢 Announcements</button>
+        <button class="tab-btn" data-target="tab-seminars">📚 CPE Seminars</button>
+        <button class="tab-btn" data-target="tab-newsletters">📄 Newsletters</button>
+        <button class="tab-btn" data-target="tab-queries">✉ User Grievances</button>
+      </div>
+
+      <!-- Tab Panel 1: Announcements -->
+      <div class="tab-content-panel" id="tab-announcements" style="display: block;">
+        <h2 style="color: var(--primary-blue); margin-bottom: 15px;">Manage Announcements</h2>
+        
+        <!-- Add Form -->
+        <form class="gov-form mb-3" id="form-add-announcement">
+          <h3 style="font-size:1.05rem; color:var(--secondary-blue); margin-bottom:15px;">Add New Announcement</h3>
+          <div class="grid-form-fields">
+            <div class="form-group">
+              <label class="form-label" for="ann-title">Announcement Text *</label>
+              <input type="text" id="ann-title" class="form-control" required placeholder="e.g. Union Budget Seminars details">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="ann-link">Redirect Link (e.g. members.html#seminars)</label>
+              <input type="text" id="ann-link" class="form-control" placeholder="members.html#seminars">
+            </div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+              <input type="checkbox" id="ann-is-new" checked>
+              <label class="form-label" for="ann-is-new" style="margin-bottom:0; cursor:pointer;">Mark as 'NEW' blinking badge</label>
+            </div>
+            <button type="submit" class="btn-submit">➕ Publish Notice</button>
+          </div>
+        </form>
+
+        <!-- List Table -->
+        <div class="events-table-wrapper">
+          <table class="cpe-table" id="table-admin-announcements">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Title Notice</th>
+                <th>Link Path</th>
+                <th>New?</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="5" class="text-center">Loading notices...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab Panel 2: CPE Seminars -->
+      <div class="tab-content-panel" id="tab-seminars" style="display: none;">
+        <h2 style="color: var(--primary-blue); margin-bottom: 15px;">Manage CPE Seminars Calendar</h2>
+        
+        <!-- Add Form -->
+        <form class="gov-form mb-3" id="form-add-seminar">
+          <h3 style="font-size:1.05rem; color:var(--secondary-blue); margin-bottom:15px;">Add CPE Event</h3>
+          <div class="grid-form-fields">
+            <div class="form-group">
+              <label class="form-label" for="sem-date">Seminar Date *</label>
+              <input type="date" id="sem-date" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sem-time">Daily Timings *</label>
+              <input type="text" id="sem-time" class="form-control" placeholder="09:30 AM - 05:30 PM" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sem-topic">Topic Name *</label>
+              <input type="text" id="sem-topic" class="form-control" placeholder="AI in Audit & Compliance" required>
+            </div>
+          </div>
+          <div class="grid-form-fields">
+            <div class="form-group">
+              <label class="form-label" for="sem-speaker">Speaker Detail *</label>
+              <input type="text" id="sem-speaker" class="form-control" placeholder="CA. Sriram Raghavan (Chennai)" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sem-hours">CPE Structured Hours *</label>
+              <input type="number" id="sem-hours" class="form-control" placeholder="6" min="0" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="sem-fee">Event Fee Structure *</label>
+              <input type="text" id="sem-fee" class="form-control" placeholder="₹ 500/- + GST" required>
+            </div>
+          </div>
+          <div class="text-right">
+            <button type="submit" class="btn-submit">➕ Publish Seminar</button>
+          </div>
+        </form>
+
+        <!-- List Table -->
+        <div class="events-table-wrapper">
+          <table class="cpe-table" id="table-admin-seminars">
+            <thead>
+              <tr>
+                <th>Date / Time</th>
+                <th>Topic &amp; Speaker</th>
+                <th>CPE Hrs</th>
+                <th>Fee</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="5" class="text-center">Loading seminars...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab Panel 3: Newsletters -->
+      <div class="tab-content-panel" id="tab-newsletters" style="display: none;">
+        <h2 style="color: var(--primary-blue); margin-bottom: 15px;">Manage E-Newsletters</h2>
+        
+        <!-- Add Form -->
+        <form class="gov-form mb-3" id="form-add-newsletter">
+          <h3 style="font-size:1.05rem; color:var(--secondary-blue); margin-bottom:15px;">Add Monthly Newsletter Issue</h3>
+          <div class="grid-form-fields">
+            <div class="form-group">
+              <label class="form-label" for="news-month">Issue Month *</label>
+              <input type="text" id="news-month" class="form-control" placeholder="June 2026" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="news-title">Volume &amp; Description *</label>
+              <input type="text" id="news-title" class="form-control" placeholder="Vol. 53, Issue 6 | CPE schedules" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="news-url">PDF Link URL (or #) *</label>
+              <input type="text" id="news-url" class="form-control" value="#" required>
+            </div>
+          </div>
+          <div class="text-right">
+            <button type="submit" class="btn-submit">➕ Publish Newsletter</button>
+          </div>
+        </form>
+
+        <!-- List Table -->
+        <div class="events-table-wrapper">
+          <table class="cpe-table" id="table-admin-newsletters">
+            <thead>
+              <tr>
+                <th>Month</th>
+                <th>Volume Details</th>
+                <th>PDF Link</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="4" class="text-center">Loading newsletters...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Tab Panel 4: User Queries -->
+      <div class="tab-content-panel" id="tab-queries" style="display: none;">
+        <h2 style="color: var(--primary-blue); margin-bottom: 15px;">User Grievances &amp; Submitted Queries</h2>
+        <p class="mb-2">View real-time grievances received through the contact forms:</p>
+        
+        <div class="events-table-wrapper">
+          <table class="cpe-table" id="table-admin-queries">
+            <thead>
+              <tr>
+                <th>Ticket No</th>
+                <th>User Details</th>
+                <th>Category</th>
+                <th>Message Content</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="5" class="text-center">Loading user queries...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- JS Credentials & SDK scripts -->
+  <script src="config.example.js"></script>
+  <script>
+    // Failsafe loading of config.js
+    // We try to load config.js dynamically. If not, window.SUPABASE_URL remains default placeholder.
+    (function() {
+      const script = document.createElement("script");
+      script.src = "config.js";
+      script.async = false;
+      document.head.appendChild(script);
+    })();
+  </script>
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <script>
+    // Tab switching setup
+    document.querySelectorAll(".tab-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab-btn").forEach(t => t.classList.remove("active"));
+        document.querySelectorAll(".tab-content-panel").forEach(p => p.style.display = "none");
+        
+        btn.classList.add("active");
+        const target = btn.getAttribute("data-target");
+        document.getElementById(target).style.display = "block";
+      });
+    });
+
+    // Supabase client instance holder
+    let supabaseClient = null;
+
+    window.addEventListener("load", () => {
+      // Validate credentials have been set
+      if (!window.SUPABASE_URL || window.SUPABASE_URL.includes("your-project-ref")) {
+        document.getElementById("config-alert").style.display = "block";
+        return;
+      }
+
+      // Initialize
+      try {
+        supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+        checkSession();
+      } catch (err) {
+        console.error("Error creating Supabase client:", err);
+        alert("Failed to initialize Supabase. Check config.js settings.");
+      }
+    });
+
+    // Check auth session
+    async function checkSession() {
+      const { data: { session }, error } = await supabaseClient.auth.getSession();
+      if (error) {
+        console.error("Session check error:", error);
+        showLoginForm();
+        return;
+      }
+      
+      if (session) {
+        showDashboard(session.user);
+      } else {
+        showLoginForm();
+      }
+    }
+
+    function showLoginForm() {
+      document.getElementById("login-container").style.display = "block";
+      document.getElementById("dashboard-container").style.display = "none";
+    }
+
+    function showDashboard(user) {
+      document.getElementById("login-container").style.display = "none";
+      document.getElementById("dashboard-container").style.display = "block";
+      document.getElementById("user-email-display").innerText = `Logged in as: ${user.email}`;
+      
+      // Load tables
+      loadAnnouncements();
+      loadSeminars();
+      loadNewsletters();
+      loadQueries();
+    }
+
+    // Login execution
+    document.getElementById("admin-login-form").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value;
+      const pass = document.getElementById("login-password").value;
+      
+      const { data, error } = await supabaseClient.auth.signInWithPassword({
+        email: email,
+        password: pass
+      });
+
+      if (error) {
+        alert("Authentication failed: " + error.message);
+      } else {
+        showDashboard(data.user);
+      }
+    });
+
+    // Logout execution
+    document.getElementById("btn-admin-logout").addEventListener("click", async () => {
+      const { error } = await supabaseClient.auth.signOut();
+      if (error) {
+        alert("Sign out error: " + error.message);
+      }
+      showLoginForm();
+    });
+
+    /* ----------------------------------------------------
+       Tab 1: Announcements CRM
+       ---------------------------------------------------- */
+    async function loadAnnouncements() {
+      const tableBody = document.querySelector("#table-admin-announcements tbody");
+      tableBody.innerHTML = '<tr><td colspan="5" class="text-center">Loading notices...</td></tr>';
+      
+      const { data, error } = await supabaseClient
+        .from("announcements")
+        .select("*")
+        .order("date", { ascending: false });
+
+      if (error) {
+        tableBody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger-color)">Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      if (data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No announcements found in database.</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = "";
+      data.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${item.date}</td>
+          <td><strong>${item.title}</strong></td>
+          <td><code>${item.link || '-'}</code></td>
+          <td>${item.is_new ? '✅' : '❌'}</td>
+          <td class="action-cell">
+            <button class="btn-delete" onclick="deleteAnnouncement('${item.id}')">🗑 Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    document.getElementById("form-add-announcement").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const title = document.getElementById("ann-title").value;
+      const link = document.getElementById("ann-link").value || null;
+      const isNew = document.getElementById("ann-is-new").checked;
+
+      const { error } = await supabaseClient
+        .from("announcements")
+        .insert([{ title, link, is_new: isNew }]);
+
+      if (error) {
+        alert("Error creating announcement: " + error.message);
+      } else {
+        document.getElementById("form-add-announcement").reset();
+        loadAnnouncements();
+      }
+    });
+
+    async function deleteAnnouncement(id) {
+      if (!confirm("Are you sure you want to delete this notice?")) return;
+      const { error } = await supabaseClient.from("announcements").delete().eq("id", id);
+      if (error) {
+        alert("Error deleting: " + error.message);
+      } else {
+        loadAnnouncements();
+      }
+    }
+
+    /* ----------------------------------------------------
+       Tab 2: Seminars CRM
+       ---------------------------------------------------- */
+    async function loadSeminars() {
+      const tableBody = document.querySelector("#table-admin-seminars tbody");
+      tableBody.innerHTML = '<tr><td colspan="5" class="text-center">Loading seminars...</td></tr>';
+      
+      const { data, error } = await supabaseClient
+        .from("seminars")
+        .select("*")
+        .order("date", { ascending: true });
+
+      if (error) {
+        tableBody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger-color)">Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      if (data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No CPE seminars found.</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = "";
+      data.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${item.date}</strong><br>${item.time}</td>
+          <td><strong>${item.topic}</strong><br>Speaker: ${item.speaker}</td>
+          <td>${item.hours} hrs</td>
+          <td>${item.fee}</td>
+          <td class="action-cell">
+            <button class="btn-delete" onclick="deleteSeminar('${item.id}')">🗑 Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    document.getElementById("form-add-seminar").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const date = document.getElementById("sem-date").value;
+      const time = document.getElementById("sem-time").value;
+      const topic = document.getElementById("sem-topic").value;
+      const speaker = document.getElementById("sem-speaker").value;
+      const hours = parseInt(document.getElementById("sem-hours").value);
+      const fee = document.getElementById("sem-fee").value;
+
+      const { error } = await supabaseClient
+        .from("seminars")
+        .insert([{ date, time, topic, speaker, hours, fee }]);
+
+      if (error) {
+        alert("Error creating seminar: " + error.message);
+      } else {
+        document.getElementById("form-add-seminar").reset();
+        loadSeminars();
+      }
+    });
+
+    async function deleteSeminar(id) {
+      if (!confirm("Delete this seminar event?")) return;
+      const { error } = await supabaseClient.from("seminars").delete().eq("id", id);
+      if (error) {
+        alert("Error: " + error.message);
+      } else {
+        loadSeminars();
+      }
+    }
+
+    /* ----------------------------------------------------
+       Tab 3: Newsletters CRM
+       ---------------------------------------------------- */
+    async function loadNewsletters() {
+      const tableBody = document.querySelector("#table-admin-newsletters tbody");
+      tableBody.innerHTML = '<tr><td colspan="4" class="text-center">Loading newsletters...</td></tr>';
+      
+      const { data, error } = await supabaseClient
+        .from("newsletters")
+        .select("*");
+
+      if (error) {
+        tableBody.innerHTML = `<tr><td colspan="4" class="text-center" style="color:var(--danger-color)">Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      if (data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="4" class="text-center">No newsletters found.</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = "";
+      data.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${item.month}</strong></td>
+          <td>${item.title}</td>
+          <td><code>${item.pdf_url}</code></td>
+          <td class="action-cell">
+            <button class="btn-delete" onclick="deleteNewsletter('${item.id}')">🗑 Delete</button>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    document.getElementById("form-add-newsletter").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const month = document.getElementById("news-month").value;
+      const title = document.getElementById("news-title").value;
+      const url = document.getElementById("news-url").value;
+
+      const { error } = await supabaseClient
+        .from("newsletters")
+        .insert([{ month, title, pdf_url: url }]);
+
+      if (error) {
+        alert("Error adding newsletter: " + error.message);
+      } else {
+        document.getElementById("form-add-newsletter").reset();
+        loadNewsletters();
+      }
+    });
+
+    async function deleteNewsletter(id) {
+      if (!confirm("Delete this newsletter?")) return;
+      const { error } = await supabaseClient.from("newsletters").delete().eq("id", id);
+      if (error) {
+        alert("Error: " + error.message);
+      } else {
+        loadNewsletters();
+      }
+    }
+
+    /* ----------------------------------------------------
+       Tab 4: User Queries Viewer
+       ---------------------------------------------------- */
+    async function loadQueries() {
+      const tableBody = document.querySelector("#table-admin-queries tbody");
+      tableBody.innerHTML = '<tr><td colspan="5" class="text-center">Loading user queries...</td></tr>';
+      
+      const { data, error } = await supabaseClient
+        .from("queries")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        tableBody.innerHTML = `<tr><td colspan="5" class="text-center" style="color:var(--danger-color)">Error: ${error.message}</td></tr>`;
+        return;
+      }
+
+      if (data.length === 0) {
+        tableBody.innerHTML = '<tr><td colspan="5" class="text-center">No user submissions found.</td></tr>';
+        return;
+      }
+
+      tableBody.innerHTML = "";
+      data.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><span style="font-family:monospace; font-weight:700">${item.ticket_no}</span></td>
+          <td><strong>${item.name}</strong><br>${item.email}<br><span style="font-size:0.75rem;color:var(--text-muted)">Mem: ${item.membership_no || '-'}</span></td>
+          <td><span class="secure-cloud-badge" style="background:#e5e9f2;color:var(--primary-blue);border-color:#ccc">${item.category}</span></td>
+          <td style="font-size:0.8rem; max-width:300px; overflow-wrap:break-word;">${item.message}</td>
+          <td class="action-cell">
+            <button class="btn-delete" onclick="deleteQuery('${item.id}')">🗑 Resolve</button>
+          </td>
+        `;
+        tableBody.appendChild(tr);
+      });
+    }
+
+    async function deleteQuery(id) {
+      if (!confirm("Mark this query as resolved? It will be removed from view.")) return;
+      const { error } = await supabaseClient.from("queries").delete().eq("id", id);
+      if (error) {
+        alert("Error resolving query: " + error.message);
+      } else {
+        loadQueries();
+      }
+    }
+  </script>
+</body>
+</html>

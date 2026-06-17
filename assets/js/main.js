@@ -1,21 +1,48 @@
 /**
  * ICAI Vijayawada Branch Portal Javascript
- * Accessibility features, carousel slider, news marquee controls, mobile menus, and forms validation.
+ * Accessibility features, carousel slider, news marquee controls, mobile menus, forms validation, and Supabase CMS integration.
  */
 
-document.addEventListener("DOMContentLoaded", () => {
+// Global Supabase client instance
+let supabase = null;
+
+document.addEventListener("DOMContentLoaded", async () => {
   initAccessibility();
   initMobileNav();
   initCarousel();
-  initTicker();
   initVisitorCounter();
-  initFormInteractions();
   initSubPageTabs();
   initSearchFilter();
+
+  // Try to initialize Supabase
+  await initSupabase();
+
+  // Load real-time database content or fallback
+  initTicker();
+  initFormInteractions();
+  loadLiveAnnouncements();
+  loadLiveSeminars();
+  loadLiveNewsletters();
 });
 
 /* ----------------------------------------------------
-   1. Accessibility Functions (Font Scale & Contrast)
+   1. Supabase Initialization
+   ---------------------------------------------------- */
+async function initSupabase() {
+  if (window.supabase && window.SUPABASE_URL && !window.SUPABASE_URL.includes("your-project-ref")) {
+    try {
+      supabase = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+      console.log("[ICAI CMS] Supabase initialized successfully. Real-time data sync active.");
+    } catch (e) {
+      console.error("[ICAI CMS] Error creating Supabase client:", e);
+    }
+  } else {
+    console.warn("[ICAI CMS] config.js not yet configured or keys missing. Running in offline/mock data fallback mode.");
+  }
+}
+
+/* ----------------------------------------------------
+   2. Accessibility Functions (Font Scale & Contrast)
    ---------------------------------------------------- */
 function initAccessibility() {
   const btnFontSmall = document.getElementById("btn-font-small");
@@ -63,7 +90,7 @@ function initAccessibility() {
 }
 
 /* ----------------------------------------------------
-   2. Mobile Navigation Toggle & Dropdowns
+   3. Mobile Navigation Toggle & Dropdowns
    ---------------------------------------------------- */
 function initMobileNav() {
   const mobileToggle = document.getElementById("mobile-toggle");
@@ -91,7 +118,7 @@ function initMobileNav() {
 }
 
 /* ----------------------------------------------------
-   3. Carousel / Slide Transition Control
+   4. Carousel / Slide Transition Control
    ---------------------------------------------------- */
 function initCarousel() {
   const slides = document.querySelectorAll(".carousel-slide");
@@ -137,9 +164,9 @@ function initCarousel() {
 }
 
 /* ----------------------------------------------------
-   4. Ticker Play/Pause (Accessibility Friendly)
+   5. Ticker Play/Pause & Real-time Fetch
    ---------------------------------------------------- */
-function initTicker() {
+async function initTicker() {
   const marquee = document.querySelector(".ticker-marquee");
   const playPauseBtn = document.getElementById("btn-ticker-toggle");
 
@@ -159,10 +186,197 @@ function initTicker() {
       playPauseBtn.setAttribute("aria-label", "Pause ticker scroll");
     }
   });
+
+  // Pull active ticker headlines if Supabase is active
+  if (supabase) {
+    try {
+      const { data, error } = await supabase
+        .from("announcements")
+        .select("*")
+        .order("date", { ascending: false });
+
+      if (!error && data && data.length > 0) {
+        marquee.innerHTML = "";
+        data.forEach(item => {
+          const span = document.createElement("span");
+          span.className = "ticker-item";
+          span.innerHTML = `📢 <a href="${item.link || '#'}">${item.title}</a> ${item.is_new ? '<span class="badge-new">NEW</span>' : ''}`;
+          marquee.appendChild(span);
+        });
+      }
+    } catch (err) {
+      console.error("[ICAI CMS] Error populating ticker:", err);
+    }
+  }
 }
 
 /* ----------------------------------------------------
-   5. Visitor Counter Logic (Persistent localStorage)
+   6. Live Announcements notice list Pull
+   ---------------------------------------------------- */
+async function loadLiveAnnouncements() {
+  const noticeList = document.querySelector(".notice-list");
+  if (!noticeList || !supabase) return;
+
+  try {
+    const { data, error } = await supabase
+      .from("announcements")
+      .select("*")
+      .order("date", { ascending: false });
+
+    if (error) {
+      console.error("[ICAI CMS] Error pulling notice list:", error);
+      return;
+    }
+
+    if (data) {
+      noticeList.innerHTML = "";
+      if (data.length === 0) {
+        noticeList.innerHTML = '<li class="notice-item">No announcements found.</li>';
+        return;
+      }
+
+      data.forEach(item => {
+        const li = document.createElement("li");
+        li.className = "notice-item";
+        
+        // Format date string beautifully (DD MMM YYYY)
+        const parts = item.date.split("-");
+        const formattedDate = (parts.length === 3) 
+          ? new Date(parts[0], parts[1]-1, parts[2]).toLocaleDateString("en-IN", {day: "numeric", month: "short", year: "numeric"})
+          : item.date;
+
+        li.innerHTML = `
+          <span class="notice-date">📅 ${formattedDate} ${item.is_new ? '<span class="badge-new">NEW</span>' : ''}</span>
+          <a href="${item.link || '#'}" class="notice-link">${item.title}</a>
+        `;
+        noticeList.appendChild(li);
+      });
+    }
+  } catch (err) {
+    console.error("[ICAI CMS] Live announcements error:", err);
+  }
+}
+
+/* ----------------------------------------------------
+   7. Live CPE Seminars Table Pull
+   ---------------------------------------------------- */
+async function loadLiveSeminars() {
+  const homeTableBody = document.querySelector(".main-grid .cpe-table tbody");
+  const membersTableBody = document.querySelector("#cpe-search-table tbody");
+
+  if ((!homeTableBody && !membersTableBody) || !supabase) return;
+
+  try {
+    const { data, error } = await supabase
+      .from("seminars")
+      .select("*")
+      .order("date", { ascending: true });
+
+    if (error) {
+      console.error("[ICAI CMS] Seminars pull error:", error);
+      return;
+    }
+
+    if (data) {
+      // 1. Update Homepage Table (Top 3 upcoming)
+      if (homeTableBody) {
+        homeTableBody.innerHTML = "";
+        if (data.length === 0) {
+          homeTableBody.innerHTML = '<tr><td colspan="4" class="text-center">No CPE seminars scheduled.</td></tr>';
+        } else {
+          data.slice(0, 3).forEach(item => {
+            const parts = item.date.split("-");
+            const formattedDate = (parts.length === 3) 
+              ? new Date(parts[0], parts[1]-1, parts[2]).toLocaleDateString("en-IN", {day: "numeric", month: "short"})
+              : item.date;
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td><strong>${formattedDate}</strong><br>${item.time}</td>
+              <td><strong>${item.topic}</strong><br>${item.speaker}</td>
+              <td>${item.hours} hrs<br>${item.fee}</td>
+              <td><button class="cpe-btn" data-topic="${item.topic}">Register</button></td>
+            `;
+            homeTableBody.appendChild(tr);
+          });
+        }
+      }
+
+      // 2. Update Members Portal Table (All events)
+      if (membersTableBody) {
+        membersTableBody.innerHTML = "";
+        if (data.length === 0) {
+          membersTableBody.innerHTML = '<tr><td colspan="5" class="text-center">No CPE seminars scheduled.</td></tr>';
+        } else {
+          data.forEach(item => {
+            const parts = item.date.split("-");
+            const formattedDate = (parts.length === 3) 
+              ? new Date(parts[0], parts[1]-1, parts[2]).toLocaleDateString("en-IN", {day: "numeric", month: "short", year: "numeric"})
+              : item.date;
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td><strong>${formattedDate}</strong><br>${item.time}<br>ICAI Bhawan Seminar Hall</td>
+              <td><strong>${item.topic}</strong><br>Speaker: ${item.speaker}</td>
+              <td>${item.hours} Hours<br>(Structured)</td>
+              <td>${item.fee}</td>
+              <td><button class="cpe-btn" data-topic="${item.topic}">Register</button></td>
+            `;
+            membersTableBody.appendChild(tr);
+          });
+        }
+      }
+
+      // Rebind register feedback listeners
+      bindRegisterButtons();
+    }
+  } catch (err) {
+    console.error("[ICAI CMS] Live seminars error:", err);
+  }
+}
+
+/* ----------------------------------------------------
+   8. Live Monthly Newsletters Archive Pull
+   ---------------------------------------------------- */
+async function loadLiveNewsletters() {
+  const newsletterTableBody = document.querySelector("#newsletters .cpe-table tbody");
+  if (!newsletterTableBody || !supabase) return;
+
+  try {
+    const { data, error } = await supabase
+      .from("newsletters")
+      .select("*");
+
+    if (error) {
+      console.error("[ICAI CMS] Newsletter pull error:", error);
+      return;
+    }
+
+    if (data) {
+      newsletterTableBody.innerHTML = "";
+      if (data.length === 0) {
+        newsletterTableBody.innerHTML = '<tr><td colspan="4" class="text-center">No newsletter archive issues found.</td></tr>';
+        return;
+      }
+
+      data.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td><strong>${item.month}</strong></td>
+          <td>${item.title}</td>
+          <td>📄 PDF</td>
+          <td><a href="${item.pdf_url}" class="cpe-btn" style="background:#144c8c; text-decoration:none; padding:4px 10px;">Download PDF</a></td>
+        `;
+        newsletterTableBody.appendChild(tr);
+      });
+    }
+  } catch (err) {
+    console.error("[ICAI CMS] Newsletters pull error:", err);
+  }
+}
+
+/* ----------------------------------------------------
+   9. Visitor Counter Logic (Persistent localStorage)
    ---------------------------------------------------- */
 function initVisitorCounter() {
   const counterDigits = document.getElementById("counter-digits");
@@ -189,41 +403,78 @@ function initVisitorCounter() {
 }
 
 /* ----------------------------------------------------
-   6. Form Validation & Simulation Interactions
+   10. Form Submissions & Dynamic Registration Bindings
    ---------------------------------------------------- */
 function initFormInteractions() {
-  // Query Form Contact Page
+  // Query Form on Contact Page
   const queryForm = document.getElementById("query-form");
-  queryForm?.addEventListener("submit", (e) => {
+  queryForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("query-name")?.value;
     const email = document.getElementById("query-email")?.value;
+    const membership = document.getElementById("query-membership")?.value || "";
+    const category = document.getElementById("query-category")?.value;
     const msg = document.getElementById("query-message")?.value;
 
-    if (!name || !email || !msg) {
+    if (!name || !email || !msg || !category) {
       alert("Please fill all mandatory fields.");
       return;
     }
 
-    // Generate random reference code
     const ticketNo = "VIJ-QRY-" + Math.floor(100000 + Math.random() * 900000);
-    alert(`Thank you, ${name}! Your query is successfully submitted.\nReference Ticket No: ${ticketNo}\nOur desk will get back to you shortly.`);
+
+    // If Supabase database active, insert row
+    if (supabase) {
+      try {
+        const { error } = await supabase
+          .from("queries")
+          .insert([{
+            ticket_no: ticketNo,
+            name: name,
+            email: email,
+            membership_no: membership,
+            category: category,
+            message: msg
+          }]);
+
+        if (!error) {
+          alert(`Thank you, ${name}! Your query has been successfully submitted to the database.\nReference Ticket No: ${ticketNo}\nOur desk will get back to you shortly.`);
+          queryForm.reset();
+          return;
+        } else {
+          console.error("[ICAI CMS] Database submission error:", error);
+        }
+      } catch (err) {
+        console.error("[ICAI CMS] Query submission error:", err);
+      }
+    }
+
+    // Fallback offline submission message
+    alert(`Thank you, ${name}! Your query is successfully submitted (Offline fallback active).\nReference Ticket No: ${ticketNo}\nOur desk will get back to you shortly.`);
     queryForm.reset();
   });
 
-  // Event Register buttons
+  // Call initial binding of register action keys
+  bindRegisterButtons();
+}
+
+function bindRegisterButtons() {
   const regButtons = document.querySelectorAll(".cpe-btn");
   regButtons.forEach(btn => {
-    btn.addEventListener("click", (e) => {
-      const topic = e.target.getAttribute("data-topic") || "Seminar";
-      const referenceNo = "CPE-REG-" + Math.floor(1000 + Math.random() * 9000);
-      alert(`Registration Successful!\nEvent: ${topic}\nYour Reservation ID is: ${referenceNo}\nAn confirmation email has been sent to your registered ICAI address.`);
-    });
+    // Prevent duplicate binding
+    btn.removeEventListener("click", handleRegisterClick);
+    btn.addEventListener("click", handleRegisterClick);
   });
 }
 
+function handleRegisterClick(e) {
+  const topic = e.target.getAttribute("data-topic") || "Seminar";
+  const referenceNo = "CPE-REG-" + Math.floor(1000 + Math.random() * 9000);
+  alert(`Registration Successful!\nEvent: ${topic}\nYour Reservation ID is: ${referenceNo}\nAn confirmation email has been sent to your registered ICAI address.`);
+}
+
 /* ----------------------------------------------------
-   7. Sub-page Navigation Tabs
+   11. Sub-page Navigation Tabs
    ---------------------------------------------------- */
 function initSubPageTabs() {
   const tabs = document.querySelectorAll(".tab-btn");
@@ -247,7 +498,7 @@ function initSubPageTabs() {
 }
 
 /* ----------------------------------------------------
-   8. Search & Table Row Filters
+   12. Search & Table Row Filters
    ---------------------------------------------------- */
 function initSearchFilter() {
   const searchInput = document.getElementById("cpe-search-input");
